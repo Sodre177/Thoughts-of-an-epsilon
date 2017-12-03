@@ -1,0 +1,61 @@
+\documentclass[a4paper]{amsart}
+
+\usepackage{fancycom}
+
+\title{Quiver representations}
+\author{Adam Walsh}
+
+\begin{document}
+\maketitle
+\begin{abstract}
+    In this sketch we examine some basic properties of quivers and quiver representations from an algebraic point of view. We shall follow the notation of [1].
+\end{abstract}
+Quivers are simple mathematical objects which provide easy descriptions of many concepts, particularly in representation theory. We begin by giving the definition of a quiver, then we develop the category of representations associated to each quiver, and conclude with a brief look at the quiver algebra.
+\section*{Quivers}
+\begin{Definition}
+    A quiver is a graph with directed edges where multiple edges are allowed between vertices. Formally, a quiver $Q=(Q_0,Q_1,s,t)$ consists of four pieces of information:
+    \begin{itemize}
+        \item The set of vertices $Q_0$;
+        \item The set of edges $Q_1$; and
+        \item Functions $\func{s,t}{Q_1}{Q_0}$ sending an edge to its source and target, respectively.
+    \end{itemize}
+\end{Definition}
+For simplicity, unless otherwise specified all quivers in this document will be finite and connected.
+
+We usually denote the vertices of $Q$ with natural numbers $i$ and the edges by $\alpha_j$. For example, the following depicts a quiver with three vertices $Q_0=\{1,2,3\}$ and edges $Q_1=\{\alpha_1,\alpha_2\}$ going from $1$ to $2$ and $3$ to $2$ respectively.
+\[
+    \begin{tikzcd}
+        1 \arrow[r, "\alpha_1"] & 2 & 3 \arrow[l,swap, "\alpha_2"]
+    \end{tikzcd}
+\]
+Another example of a quiver is the $r$-arrow Kronecker quiver, denoted by $K_r$. $K_r$ consists of two vertices, usually denoted $1$ and $2$, along with $r$ arrows $\alpha_1,\dots,\alpha_r$ from $1$ to $2$.
+\[
+    \begin{tikzcd}
+        1
+            \arrow[r, draw=none, "\raisebox{+1.5ex}{\vdots}" description]
+            \arrow[r, bend left,        "\alpha_1"]
+            \arrow[r, bend right, swap, "\alpha_r"]
+        &  2
+    \end{tikzcd}
+\]
+We are now ready to define quiver representations. Fix a base field $k$. A representation of a quiver assigns to each vertex a $k$-vector space and to each arrow a $k$-linear map between the corresponding vector spaces.
+%We can now define quiver representations. Fix a base field $k$.
+\begin{Definition}
+    Let $Q$ be a quiver with vertices labelled $i$ and edges $\alpha_j$. Then a quiver representation $M = (M_i, \varphi_j)$ consists of:
+    \begin{itemize}
+        \item $k$-vector spaces $M_i$ corresponding to each vertex $i$; and
+        \item $k$-linear maps $\func{\varphi_j}{M_{s(\alpha_j)}}{M_{t(\alpha_j)}}$ associated to each edge $\alpha_j$.
+    \end{itemize}
+\end{Definition}
+To write specific quiver representations, we recall that a $k$-linear map from $k^m$ to $k^n$ may be written as an $n\times m$ matrix. For example, the following is a representation of $K_2$.
+\[
+    \begin{tikzcd}
+        k^1
+            \arrow[r, bend left,        "\sbmqty{1\\0}"]
+            \arrow[r, bend right, swap, "\sbmqty{0\\1}"]
+        &  k^2
+    \end{tikzcd}
+\]
+
+\end{document}
+

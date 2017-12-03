@@ -1,0 +1,88 @@
+\documentclass[a4paper]{amsart}
+
+\usepackage{fancycom}
+
+\title{Schemes}
+\author{Adam Walsh}
+
+\begin{document}
+\maketitle
+The purpose of this document is a quick review on the basic definition of schemes.
+
+We shall begin by defining the basic notions of category theory required for the theory of schemes, then move onto defining pre-sheaves and sheaves, and finally schemes.
+\section{Category theory}
+%Define categories, morphisms, functors, etc.
+Just as we have functors between categories, we can have maps between functors, namely natural transformations, defined as follows.
+\begin{Definition}
+    Consider two categories $\cC$ and $\cD$, and two functors $\func{F,G}{\cC}{\cD}$ between them. Then, a \emph{natural transformation} $\eta$ from $F$ to $G$ is a collection of \emph{components} $\eta_x \in \Hom_{\cD}\big( F(x), G(x) \big)$ such that for any $x,y\in \Obj(\cC)$ and any morphism $f\in \Hom_{\cC}(x,y)$, the following diagram commutes:
+    \[
+        \begin{tikzcd}
+            F(x) \arrow[r, "\eta_x"] \arrow[d, "F(f)"] & G(x) \arrow[d,"G(f)"] \\
+            F(y) \arrow[r,"\eta_y"]  & G(y)
+        \end{tikzcd}
+    \]
+    where $F(f)$ and $G(f)$ denote the image of $f$ under $F$ and $G$ respectively. We usually draw
+    \[
+        \begin{tikzcd}
+            \cC \arrow[r, bend left=50, "F"{above}, ""{name=A,below}]  & \cD \arrow[l, bend left=50, "G"{below}, ""{name=B, above}]\\
+            \arrow[Rightarrow, from=A, to=B, "\eta"]
+        \end{tikzcd}
+    \]
+    to indicate that $\eta$ is a natural transformation between $F$ and $G$.
+\end{Definition}
+
+\section{Sheaves}
+We begin our review of sheaves with the definition of a pre-sheaf, specifically the definition of the pre-sheaf of abelian groups over a topological space.
+\begin{Definition}
+    A pre-sheaf $\cF$ of abelian groups over a topological space $X$ is an object assigning to each open set $U$ in $X$ an abelian group $\cF(U)$, and to each inclusion $U\subseteq V$, a group homomorphism $\func{\rho_{VU}}{\cF(V)}{\cF(U)}$ satisfying the following compatibility properties.
+    \begin{itemize}
+        \item $\rho_{UU}$ is the identity,
+        \item $\rho_{VU} \circ \rho_{WV} = \rho_{WU}$.
+    \end{itemize}
+    The group $\cF(U)$ is known as the group of sections over $U$, and the map $\rho_{UV}$ is known as the restriction map from $\cF(V)$ to $\cF(U)$.
+\end{Definition}
+More generally, we can define a pre-sheaf of any category $\cC$ over $X$, leading to the following categorical definition:
+\begin{Definition}
+    A pre-sheaf over the topological space $X$ with topology $\cT$ is a contravariant functor
+    \[
+        \func{\cF}{\cT}{\cC}
+    \]
+    where $\cT$ is considered a subcategory of SET.
+\end{Definition}
+The notion of the maps as restriction maps comes from a general class of examples, one of which is given below.
+
+%\begin{Example}
+%    Consider a manifold $M$ locally homeomorphic to $R^n$, covered with open sets $U_i$. Then we construct a pre-sheaf $\cF$ over $M$. $\cF$ assigns to each open set $U_i$ the ring of smooth functions from $U_i$ to $\bR^n$, under standard addition and multiplication (by forgetfullness this is also an abelian group). The sections of $U_i$ are then smooth functions from $U_i$, and the restriction maps restrict these sections as follows.
+%    \[
+%        \vfunc{\rho_{VU}}{\cF(V)}{\cF(U)}{\big(\func{\varphi_i}{V}{\bR^n} \big)}{ \varphi_i \mid_{U} }
+%    \]
+%\end{Example}
+
+\begin{Example}
+    Consider a manifold locally homeomorphic to $\bR^n$, covered with open sets $U_i$. A pre-sheaf $\cF$ of abelian groups is then given by letting sections over $U_i$ be smooth maps to $\bR^n$, and letting the restriction maps restrict the sections. Hence, $\cF(U)$ becomes the ring (hence abelian group) of all smooth maps from $U$ to $\bR^n$, and given $U\subseteq V$, $\rho_{VU}$ takes the section $\func{\varphi}{V}{\bR^n}$ to $\varphi|_U$. The pre-sheaf properties are easily confirmed.
+\end{Example}
+We shall often use the notation of restrictions to denote restriction maps, i.e. if $s$ is a section of $V$ with $U\subseteq V$, then we denote $\rho_{VU}(s)$ by $s|_U$.
+
+
+To obtain a more intuitive understanding of pre-sheaves, one may consider painting an egg. The surface of the egg then becomes the manifold in the example above. When we look at the egg, we only see a subset, or a section of the shell. The sections of the pre-sheaf then become the possible paintings (think smooth maps to $\bR^2$) on the visible portion of the shell. Applying a restriction map is equivalent to narrowing our vision to a smaller portion of the shell.
+
+Considering the example of an egg, we see that is has a particular nice property, namely that once we have painted the egg (i.e. chosen particular sections for each open set), we can turn the egg around in our hands and gain a unique, complete vision of what the painting looks like. That is, we can mentally glue the sections together into a unique picture over the entire surface. This property makes the following definition of a sheaf natural.
+\begin{Definition}
+    Let $\cF$ be a pre-sheaf over $X$. Then $\cF$ is a sheaf if the following properties hold for all collections $\{U_i\}_{i\in I}$ of open sets in $X$ with union $U = \bigcup_{i\in I} U_i$.
+    \begin{itemize}
+        \item \emph{Gluing is possible.} Given a collection of sections $s_i \in \cF(U_i)$ such that they agree on the intersections, i.e. $s_i|_{U_i \cap U_j} = s_j|_{U_i \cap U_j}$ holds for all $i,j\in I$, there exists a section $s\in \cF(U)$ such that $s|_{U_i} = s_i$.
+        \item \emph{Gluing is unique.} If a section agrees with another section over all $U_i$, then they must be equal. That is, if $s,t \in \cF(U)$ such that $s|_{U_i} = t|_{U_i}$, then $s=t$.
+    \end{itemize}
+\end{Definition}
+Since a pre-sheaf (and hence a sheaf) may be considered as a functor, we can define morphisms between pre-sheaves as natural transformations between the functors. Explicitly, we obtain the following definition.
+\begin{Definition}
+    Let $\cF$ and $\cF'$ be pre-sheaves over $X$. A morphism $\eta$ from $\cF$ to $\cF'$ is a collection of morphisms $\func{\eta_{U}}{\cF(U)}{\cF'(U)}$ such that the following diagram commutes for all open sets $V\subseteq U$ in $X$.
+    \[
+        \begin{tikzcd}
+            \cF(U) \arrow[r, "\eta_U"] \arrow[d, "\rho_{UV}"] & \cF'(U) \arrow[d,"\rho'_{UV}"] \\
+            \cF(V) \arrow[r,"\eta_y"]  & \cF'(V)
+        \end{tikzcd}
+    \]
+\end{Definition}
+
+\end{document}

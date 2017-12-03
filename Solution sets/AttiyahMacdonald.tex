@@ -1,0 +1,42 @@
+\documentclass[a4paper]{article}
+
+\usepackage[general]{fancymath}
+\usepackage{fancycom}
+
+\aname{Adam Walsh}
+\stitle{Commutative algebra problem solutions}
+
+
+\begin{document}
+\maketitle
+These are my answers to the exercise problems given in Attiyah and Macdonald's Introduction to Commutative Algebra text.
+\begin{qanda}
+  \question
+    Let $x$ be a nilpotent element of a ring $A$. Show that $1+x$ is a unit of $A$. Deduce that the sum of a nilpotent element and a unit is a unit.
+  \answer
+    Let $x$ be nilpotent in $A$, then $x$ is in the nilradical and hence the Jacobson radical of $A$. By the equivalent definition of the Jacobson radical, $1-xy$ is a unit for all $y\in A$, hence choosing $y = -1$ we see that $1+x$ is a unit.
+    
+    Now consider nilpotent $n$ in $A$ and unit $u$ with inverse $u^{-1}$. Since the nilradical is an ideal, $nu^{-1}$ is nilpotent, and so by the first part $(n+u)u^{-1} = nu^{-1} + 1$ is a unit. Hence $n+u$ is a unit, proving the desired result.
+  \question
+    Let $A$ be a ring and let $A[x]$ be the ring of polynomials in an indeterminate $x$, with coefficients in $A$. Let $f = a_0 + a_1 x + \dots + a_n x^n\in A[x]$. Prove that
+    \begin{enumerate}
+        \item $f$ is a unit in $A[x]$ $\iff$ $a_0$ is a unit in $A$ and $a_1, \dots, a_n$ are nilpotent. [If $b_0 + b_1x + \dots + b_m x^m$ is the inverse of $f$, prove by induction on $r$ that $a_n^{r+1}b_{m-r} = 0$. Hence show that $a_n$ is nilpotent, and then use Ex. 1.]
+        \item $f$ is nilpotent $\iff$ $a_0, a_1, \dots, a_n$ are nilpotent.
+        \item $f$ is a zero-divisor $\iff$ there exists $a\neq 0$ in $A$ such that $af = 0$. [Choose a polynomial $g = b_0 + b_1 x + \dots + b_m x^m$ of least degree $m$ such that $fg = 0$. Then $a_n b_m = 0$, hence $a_n g = 0$ (because $a_ng$ annihilates $f$ and has degree $< m$). Now show by induction that $a_{n-r} g = 0$ $(0 \leq r \leq n)$.]
+        \item $f$ is said to be \emph{primitive} if $(a_0,a_1, \dots, a_n) = (1)$. Prove that if $f,g \in A[x]$, then $fg$ is primitive $\iff$ $f$ and $g$ are primitive.
+    \end{enumerate}
+  \answer
+\end{qanda}
+
+We want to show that $fg$ is primative if and only if $f$ and $g$ are primitive.
+
+Let $$f=\sum_{i=0}^n a_ix^i,\quad g=\sum_{i=0}^k b_ix^i, (\text{ wlog }) k\leq n,$$
+then extend the index for $g$, where $b_i=0$ for $n\geq i>k$.
+
+Then $fg=\sum_{i,j=0}^n a_ib_jx^{i+j} = a_nb_n x^{2n} + (a_{n-1}b_n + a_nb_{n-1}) x^{2n-1} + \dots + a_1b_1$.
+
+Assume that $fg$ is primative, so that $(\sum_{i+j=k}a_ib_j)_{k=0}^{2n}=(1)$. This ideal is contained in $(a_i)(b_j)$ and hence $(a_i)(b_j)=(1)$. $(a_i)(b_j)\subset (a_i)\cap (b_j)$ and hence $(a_i)\cap (b_j)=(1)$ and these are primative.
+
+Conversely $(a_i)=(1)=(b_j)$, in which case $(a_i)(b_j)=(a_ib_j)_{i,j=0}^n=(1)$.
+\end{document}
+

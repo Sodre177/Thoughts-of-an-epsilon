@@ -1,0 +1,281 @@
+%LaTeX package for writing fancy mathematics fast, specifically tailored to writing assignments and course notes.
+%Requires and integrates with the fancycom package, which defines many mathematical command shortcuts.
+%Not carefully checked for integration with other packages.
+%Written by Adam Walsh
+%Version 1.0
+
+%----------Identification------------
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{fancymath}[2016/06/17 v1.0 Fancy Maths Package]
+
+%----------Initial code--------------
+
+\RequirePackage{ifthen}
+
+%Layout colour
+%% 0=Full (default)
+%% 1=Black (no colour)
+%% 2=Grey (Greyscale colours)
+\newcounter{colour}
+\newboolean{fullcolour}
+\setboolean{fullcolour}{true}
+\newcommand{\colour}{}
+
+%Default Layouts
+%% 0=plain (default)
+%% 1=Assignment
+%% 2=General Submission
+%% 3=Course Notes
+%% 4=
+\newcounter{layout}
+
+
+%Separate questions on different pages (for question and answer environment)
+%%0= multiple questions per page (default)
+%%1= One question and answer per page
+\newboolean{sepquest}
+
+%----------Option Declaration------------
+
+%Colour selection
+\DeclareOption{grey}{%
+	\setcounter{colour}{2}%
+	\setboolean{fullcolour}{false}%
+	\renewcommand{\colour}{\color{Gray}}}
+
+\DeclareOption{black}{%
+	\setcounter{colour}{1}%
+	\setboolean{fullcolour}{false}%
+	\renewcommand{\colour}{\color{Black}}}
+
+%Default Layout selection
+\DeclareOption{ass}{\setcounter{layout}{1}}
+\DeclareOption{general}{\setcounter{layout}{2}}
+\DeclareOption{notes}{\setcounter{layout}{3}}
+
+%Seperate questions option
+\DeclareOption{qsep}{\setboolean{sepquest}{true}}
+
+%---------Process Options----------------
+\ProcessOptions
+
+%------------Package Loading---------------
+
+\RequirePackage[usenames,dvipsnames]{color} %To use coloured layout
+\RequirePackage{fancyhdr} %To make the headers and footers fancy
+\RequirePackage{geometry} %To manipulate the geometry of the pages
+
+\RequirePackage{calc} %For manipulating values
+
+
+%------------Main Code---------------
+
+
+%Some formatting lengths not usually useful in mathematical submissions.
+\setlength{\parindent}{0mm}
+\setlength{\parskip}{0mm}
+
+
+
+%General values used in titles and styling
+\newcommand{\authorname}{}
+\newcommand{\authornumber}{}
+\newcommand{\coursename}{}
+\newcommand{\coursenumber}{}
+\newcommand{\submissiontitle}{}
+\newcommand{\assignmentnumber}{}
+\newcommand{\thetitle}{\submissiontitle}
+\newcommand{\theauthor}{\authorname}
+\newcommand{\therightfoot}{}
+\newcommand{\theleftfoot}{}
+\newcommand{\thelefthead}{}
+
+
+
+%Control sequences for basic style values
+\newcommand{\aname}[1]{%
+	\renewcommand{\authorname}{#1}}
+\newcommand{\anum}[1]{%
+	\renewcommand{\authornumber}{#1}}
+\newcommand{\cname}[1]{%
+	\renewcommand{\coursename}{#1}}
+\newcommand{\cnum}[1]{%
+	\renewcommand{\coursenumber}{#1}}
+\newcommand{\stitle}[1]{%
+	\renewcommand{\submissiontitle}{#1}}
+\newcommand{\assnum}[1]{%
+	\renewcommand{\assignmentnumber}{#1}}
+
+%Advanced control sequences for controlling styling
+\newcommand{\rawtitle}[1]{%
+	\renewcommand{\thetitle}{#1}}
+\newcommand{\rawauthor}[1]{%
+	\renewcommand{\theauthor}{#1}}
+\newcommand{\rawrfoot}[1]{%
+	\renewcommand{\therightfoot}{#1}}
+\newcommand{\rawlfoot}[1]{%
+	\renewcommand{\theleftfoot}{#1}}
+\newcommand{\rawlhead}[1]{%
+	\renewcommand{\thelefthead}{#1}}
+
+
+%Styling common to all layouts, including plain
+
+%The page geometry
+\geometry{%
+	a4paper,%
+	left=20mm,%
+	right=20mm,%
+	top=20mm,%
+	bottom=20mm,%
+	heightrounded}
+
+
+
+%Styling common to general non-plain layouts
+\ifthenelse{\not \value{layout}=0}{%
+	%Base colours, determined from colour option
+	\newcommand{\titlecolour}{%
+		\ifthenelse{\boolean{fullcolour}}{\color{Brown}}{\colour}}
+	\newcommand{\headcolour}{%
+		\ifthenelse{\boolean{fullcolour}}{\color{Blue}}{\colour}}
+	\newcommand{\headrulecolour}{%
+		\ifthenelse{\boolean{fullcolour}}{\color{Brown}}{\colour}}
+	\newcommand{\enumcolour}{%
+		\ifthenelse{\boolean{fullcolour}}{\color{Brown}}{\colour}}
+
+	%Some default values for the footers
+	\rawlfoot{\authorname, \today}
+	\rawrfoot{\submissiontitle}
+
+	%Page style
+	\pagestyle{fancy}
+	
+	%Set the headers and footers
+	\fancyhead{}
+	\fancyfoot{}
+	\fancyfoot[L]{\headcolour\theleftfoot}
+	\fancyfoot[C]{\headcolour\thepage}
+	\fancyfoot[R]{\headcolour{}\therightfoot}
+	\fancyhead[L]{\headcolour\thelefthead}
+	\fancyhead[R]{\headcolour\thepage}
+
+	%Make the headrule
+	\renewcommand{\headrule}{\headrulecolour\vbox to 0pt{\hbox to\headwidth{\hrulefill}\vss}}
+	\headheight=21pt
+
+	%Slightly modify line spacing
+	\renewcommand{\baselinestretch}{1.1}
+	
+	%Set the style and colour of the enumerate labels
+	\renewcommand{\theenumi}{\alph{enumi}}	
+	\renewcommand{\theenumii}{\roman{enumii}}	
+	\renewcommand{\theenumiii}{\alph{enumiii}}	
+	\renewcommand{\labelenumi}{\enumcolour(\theenumi)}
+	\renewcommand{\labelenumii}{\enumcolour(\theenumii)}
+	\renewcommand{\labelenumiii}{\enumcolour(\theenumiii)}
+
+	%Make title info for maketitle
+	\author{\titlecolour\theauthor}
+	\title{\titlecolour\thetitle}
+	\date{\titlecolour\today}
+
+}{}
+
+%---Notes specific layout and styling---
+\ifthenelse{\value{layout}=3}{%
+	%Set the Notes specific headers and footers
+	\rawlfoot{\authorname, \today}
+	\rawrfoot{Notes}
+	\rawlhead{\coursenumber -- \coursename}
+	
+	%Assignment specific title and Author
+	\rawauthor{\authorname}
+	\rawtitle{\coursename -- Notes}
+}{}
+
+%---Assignment specific layout and styling---
+\ifthenelse{\value{layout}=1}{%
+	%Set the Assignment specific headers and footers
+	\rawlfoot{\authorname, \today}
+	\rawrfoot{Assignment \assignmentnumber}
+	\rawlhead{\coursenumber -- \coursename}
+	
+	%Assignment specific title and Author
+	\rawauthor{\authorname, Student \authornumber}
+	\rawtitle{\coursenumber -- Assignment \assignmentnumber}
+}{}
+
+
+%Defining the Question-and-Answer environment for use in assignments.
+%%Formats Questions and Answers with incrementing counters
+
+%Base lengths
+%%Amount questions and answers are indented
+\newlength{\qmargin}
+\setlength{\qmargin}{5mm}
+
+%%Amount of vertical space between question/answer title and question/answer.
+\newlength{\qgap}
+\setlength{\qgap}{5mm}
+
+%%Amount of vertical space between end of question and answer.
+\newlength{\qagap}
+\setlength{\qagap}{0.5em}
+
+
+%Base colours, determined from colour option
+%%Default colour is gray anyway
+\newcommand{\qcolour}{%
+	\ifthenelse{\boolean{fullcolour}}{\color{Gray}}{\colour}}
+
+%Values
+\newcounter{question}
+\newcounter{lastquestion}
+\newboolean{firstquest}
+
+
+%Control Sequences
+\newcommand{\qnum}[1]{%
+	\setcounter{question}{#1}%
+	\addtocounter{question}{-1}%
+	\setcounter{lastquestion}{\value{question}}}
+
+%The environment
+\newenvironment{qanda}{%
+	\setcounter{question}{0}%
+	\setcounter{lastquestion}{0}%
+	\setboolean{firstquest}{true}%
+	\begin{list}{}{%
+		\renewcommand{\makelabel}[1]{\qcolour\textbf{##1}\\}%
+		\setlength{\leftmargin}{\qmargin}%
+		}%
+}{%
+	\end{list}%
+}
+
+%The question and answer commands
+\newcommand{\question}[1][0]{%
+	\ifthenelse{\boolean{sepquest} \and \not \boolean{firstquest} }{\newpage}{}%
+	\setboolean{firstquest}{false}%
+	\ifthenelse{#1=0}{%
+		\stepcounter{question}%
+		\setcounter{lastquestion}{\value{question}}%
+		\item[Question \arabic{question}]%
+		\mbox{}\\%
+	}{%
+		\setcounter{lastquestion}{#1}%
+		\item[Question #1]%
+		\mbox{}\\%
+	}%
+}
+\newcommand{\answer}[1][0]{%
+	\vspace{\the\qagap}%
+	\ifthenelse{#1=0}{%
+		\item[Answer \arabic{lastquestion}]%
+		\mbox{}\\%
+	}{%
+		\item[Answer #1]%
+		\mbox{}\\%
+	}%
+}
