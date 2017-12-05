@@ -26,17 +26,26 @@ These are my answers to the exercise problems given in Attiyah and Macdonald's I
         \item $f$ is said to be \emph{primitive} if $(a_0,a_1, \dots, a_n) = (1)$. Prove that if $f,g \in A[x]$, then $fg$ is primitive $\iff$ $f$ and $g$ are primitive.
     \end{enumerate}
   \answer
+    \emph{Postponed}
+  \question
+    Generalise the results of Exercise 2 to a polynomial ring $A[x_1,\dots,x_r]$ in several indeterminates.
+  \answer
+    \emph{Postponed}
+  \question 
+    In the ring $A[x]$, the Jacobson radical is equal to the nilradical.
+  \answer
+      Consider any $f = a_0 + a_1 x + \dots + a_n x^n$ in the Jacobson radical of $A[x]$. By the equivalent definition, $1 + fg$ is a unit for all $g \in A[x]$. Consider $g=x$, then by Ex. 2, for $1+fx = 1 + a_0 x + a_1 x^2 + \dots + a_n x^{n+1}$ to be a unit in $A[x]$ we must have $a_0,\dots,a_n$ nilpotent. Again by Ex. 2, this implies that $f$ is nilpotent and hence in the nilradical. As the nilradical is always contained in the Jacobson ideal, we have shown that the Jacobson ideal is equal to the nilradical.
 \end{qanda}
 
-We want to show that $fg$ is primative if and only if $f$ and $g$ are primitive.
+%We want to show that $fg$ is primative if and only if $f$ and $g$ are primitive.
 
-Let $$f=\sum_{i=0}^n a_ix^i,\quad g=\sum_{i=0}^k b_ix^i, (\text{ wlog }) k\leq n,$$
-then extend the index for $g$, where $b_i=0$ for $n\geq i>k$.
+%Let $$f=\sum_{i=0}^n a_ix^i,\quad g=\sum_{i=0}^k b_ix^i, (\text{ wlog }) k\leq n,$$
+%then extend the index for $g$, where $b_i=0$ for $n\geq i>k$.
 
-Then $fg=\sum_{i,j=0}^n a_ib_jx^{i+j} = a_nb_n x^{2n} + (a_{n-1}b_n + a_nb_{n-1}) x^{2n-1} + \dots + a_1b_1$.
+%Then $fg=\sum_{i,j=0}^n a_ib_jx^{i+j} = a_nb_n x^{2n} + (a_{n-1}b_n + a_nb_{n-1}) x^{2n-1} + \dots + a_1b_1$.
 
-Assume that $fg$ is primative, so that $(\sum_{i+j=k}a_ib_j)_{k=0}^{2n}=(1)$. This ideal is contained in $(a_i)(b_j)$ and hence $(a_i)(b_j)=(1)$. $(a_i)(b_j)\subset (a_i)\cap (b_j)$ and hence $(a_i)\cap (b_j)=(1)$ and these are primative.
+%Assume that $fg$ is primative, so that $(\sum_{i+j=k}a_ib_j)_{k=0}^{2n}=(1)$. This ideal is contained in $(a_i)(b_j)$ and hence $(a_i)(b_j)=(1)$. $(a_i)(b_j)\subset (a_i)\cap (b_j)$ and hence $(a_i)\cap (b_j)=(1)$ and these are primative.
 
-Conversely $(a_i)=(1)=(b_j)$, in which case $(a_i)(b_j)=(a_ib_j)_{i,j=0}^n=(1)$.
+%Conversely $(a_i)=(1)=(b_j)$, in which case $(a_i)(b_j)=(a_ib_j)_{i,j=0}^n=(1)$.
 \end{document}
 
