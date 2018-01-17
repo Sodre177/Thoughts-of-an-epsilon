@@ -1,0 +1,62 @@
+\documentclass[a4paper]{article}
+
+\usepackage[general]{fancymath}
+\usepackage{fancycom}
+
+\aname{Adam Walsh}
+\stitle{Sketch - Sheaf Equaliser definition}
+
+%\rawtitle{ }
+%\rawauthor{ }
+%\rawrfoot{ }
+%\rawlfoot{ }
+%\rawlhead{ }
+
+\begin{document}
+\maketitle
+The standard definition of sheaf runs as follows:
+\begin{Definition}
+    Let $\sF$ be a pre-sheaf of some concrete category over a topological space $X$ with $\sF(U)$ denoting the set of sections over $U$ and restriction maps 
+    \[
+        \vfunc{\rho_{UV}}{\sF(U)}{\sF(V)}{\sigma}{\sigma|_V}.
+    \]
+    Then $\sF$ is a sheaf if, for any open set $U$ in $X$, the following axioms hold for any open cover $\{U_i\}_{i\in I}$
+    \begin{itemize}
+        \item The Identity Axiom: If $\sigma_1, \sigma_2 \in \sF(U)$ such that $\sigma_1|_{U_i} = \sigma_2|_{U_j}$ holds for all $i\in I$, then $\sigma_1 = \sigma_2$.
+        \item The Gluing axiom: If $\sigma_i$ are sections over $U_i$ such that $\sigma_i|_{U_i \cap U_j} = \sigma_j|_{U_i \cap U_j}$ holds for all $i, j\in I$, then there is a unique section $\sigma \in \sF(U)$ such that $\sigma|_{U_i} = \sigma_i$ for all $i\in I$.
+    \end{itemize}
+\end{Definition}
+An equivalent definition of a sheaf (for instance given by Ravi Vakil in [?]) is given by the following:
+\begin{Definition}
+    Let $\sF$ be a pre-sheaf, and $U$ be an arbitrary open set with open cover $\{U_i\}$ as above. Then $\sF$ is a sheaf if and only if the following sequence is exact:
+    \[
+        \cdot \to \sF(U) \to  \prod_{i\in I} \sF(U_i) \rightrightarrows \prod_{i,j \in I} \sF(U_i \cap U_j).
+    \]
+\end{Definition}
+We briefly explore this definition, for simplicity writing the sequence as $A_0 \to A_1 \to A_2 \rightrightarrows A_3$.
+
+Define the map
+\[
+    \sF(U) \to \prod_{i\in I} \sF(U_i)
+\]
+to be taking a section $\sigma$ over $U$ to the tuple $(\sigma|_{U_i})_{i\in I}$. To say that the sequence is exact at $\sF(U)$ is to say that the above map is injective, that is, given two such tuples $(\sigma|_{U_i}), (\sigma'|_{U_i})$, they are equal precisely when the original sections $\sigma, \sigma'$ are equal. We can immediately extract the Identity axiom.
+
+
+We precisely define the double arrow $A_2 \rightrightarrows A_3$ as follows. 
+
+For each $\alpha,\beta \in I$, the projection maps $\iota_\alpha$ of the product $A_2$ and the restriction maps of $\sF$ give a map
+\[
+    {\prod_{i \in I} \sF(U_i)} \stackrel{\iota_\alpha}{\to} { \sF(U_\alpha)} \stackrel{\rho_{U_\alpha(U_\alpha \cap U_\beta)}}{\to} {\sF(U_\alpha \cap U_\beta)}.
+\]
+
+Hence, we have a family of maps from $A_2$ to each component of the product $A_3$. By the universal property of the product, this induces a map $A_2 \to A_3$. Similarly, taking $\iota_\beta$ and $\rho_{U_\beta (U_\alpha \cap U_\beta)}$, we obtain another such map. These two maps define the double arrow in the original diagram.
+
+Consider exactness at the third term to mean that
+\[
+    \sF(U) \to \prod_{i\in I} \sF(U_i) \rightrightarrows \prod_{i,j \in I} \sF(U_i \cap U_j)
+\]
+is an equaliser, which is informally to say that the difference kernel of the second pair of maps is precisely the image of the first map. More formally, this says that the two maps defined above are equal for some tuple of sections $(\sigma_i)_{i\in I}$ precisely when the terms of the tuple can be written as $\sigma|_{U_i}$ for some $\sigma \in \sF(U)$. We immediately obtain the standard gluing property of sheaves.
+
+
+\end{document}
+
