@@ -1,0 +1,93 @@
+\documentclass[a4paper]{article}
+
+\usepackage[general]{../fancymath}
+\usepackage{../fancycom}
+
+\aname{Adam Walsh}
+\stitle{A proof of the FernBahnHof Theorem}
+
+%\rawtitle{ }
+%\rawauthor{ }
+%\rawrfoot{ }
+%\rawlfoot{ }
+%\rawlhead{ }
+
+\def\into{\hookrightarrow}
+\def\mono{\rightarrowtail}
+\def\epi{\twoheadrightarrow}
+
+
+\begin{document}
+\maketitle
+\section{Introduction}
+In this note we prove the FernBahnHof theorem from (reference to Vakil exercise here).
+%Reference theorem in later section
+%Explain why it is interesting
+%Give the general outline
+\section{Basic concepts}
+Before stating the theorem, we must first define some required terminology.\\
+
+%Define Abelian Category, embedding
+%In abelian cats the image is a monomorphism
+%Short exact sequences, relation to kernel, cokernel and quotient
+%Several methods of factoring in AbCat
+%Additive functors
+%Define left, right, and exact functors
+%Define chain complexes
+\begin{Definition}
+    An \emph{ascending} chain complex $(C^*, f^*)$ is a diagram
+    \[
+        \dots \stackrel{f^{i-2}}{\to} C^{i-1} \stackrel{f^{i-1}}{\to} C^{i} \stackrel{f^{i}}{\to} C^{i+1} \stackrel{f^{i+1}}{\to} \dots
+    \]
+    such that $f^{i} \circ f^{i-1} = 0$ for all $i$.
+\end{Definition}
+Since we are working in an abelian category, each connecting map $f^i$ uniquely induces the short exact sequence:
+\[
+    \Ker(f^i) \mono C^{i} \epi \im(f^i).
+\]
+Further, the condition that $f^i \circ f^{i-1} = 0$ precisely says that the image of $f^{i-1}$ is a subobject of the kernel of $f^i$, hence we have a monomorphism
+\[ %This needs a proof
+    \im(f^{i-1}) \into \Ker(f^{i}).
+\]
+We define the \emph{cohomology} at $C^i$ to be the associated quotient $H^i(C^*) \ceq \im(f^{i-1})/\Ker(f^i)$.\\
+
+For each $i$, the cohomology induces the sequence
+\[ %Also needs proof
+    H^i(C^*) \mono \CoKer(f^i) \epi \im(f^i).
+\]
+
+\section{The FHHF Theorem}
+%Reason for name?
+%Lemma for image map
+%Theorem
+\begin{Theorem}[The FernbaHnHoF Theorem]
+    Let $\func{F}{\cA}{\cB}$ be an additive covariant functor of abelian categories, and consider an ascending complex $\big(C^{*}, f^*\big)$ in $\cA$.
+    \begin{enumerate}
+        \item If $F$ is a right exact functor, there is a natural family of morphisms $\func{\phi^i}{FH^{i}(C^{*})}{H^{i}(FC^{*})}$ in $\cB$.
+        \item Similarly, if $F$ is a left exact functor, there is a natural family of morphisms $\func{\varphi^i}{H^{i}(FC^{*})}{FH^{i}(C^{*})}$ in $\cB$. 
+        \item If $F$ is an exact functor, then the morphisms $\phi^i, \varphi^i$ above are inverses and hence form isomorphisms ${FH^{i}(C^{*})} \isom {H^{i}(FC^{*})}$.
+    \end{enumerate}
+\end{Theorem}
+Before proving this theorem, we prove the following helpful Lemma:
+\begin{Lemma}
+    For $\func{F}{\cA}{\cB}$ a covariant additive right exact functor of abelian categories, given any $\phi \in \Hom_{\cA}(A_1,A_2)$, there is a natural epimorphism %Wth does natural mean here.. makes a diagram commute?
+    \[
+        F\big(\Im(\phi)\big) \epi \Im\big(F(\phi)\big).
+    \]
+\end{Lemma}
+\begin{proof}
+    Write the kernel/image factorisation of $\phi$ as
+    \[
+        \Ker(\phi) \stackrel{\iota}{\mono} A_1 \stackrel{\rho}{\epi} \Im(\phi).
+    \]
+
+\end{proof}
+We can now prove the main theorem:
+\begin{proof}
+    .
+\end{proof}
+%Proof of theorem
+\section{Examples}
+%Something to do with tensors, Tor, and flatness.
+\end{document}
+
