@@ -55,6 +55,7 @@ An \emph{abelian category} is, informally, a generalisation of the category of m
 %We shall require several properties of abelian categories, which we now state without proof.
 Henceforth we shall assume all categories are abelian.\\
 
+
 A sequence of objects and morphisms
 \[
     \dots \stackrel{f^{i-2}}{\to} C^{i-1} \stackrel{f^{i-1}}{\to} C^{i} \stackrel{f^{i}}{\to} C^{i+1} \stackrel{f^{i+1}}{\to} \dots
@@ -65,31 +66,35 @@ An exact sequence of the form
 \[
     0 \to A \stackrel{f}{\mono} B \stackrel{g}{\epi} C \to 0
 \]
-is called a \emph{short exact sequence}. We often just write $A \stackrel{f}{\mono} B \stackrel{g}{\epi} C$, where the arrows denote a monomorphism and epimorphism respectively.
+is called a \emph{short exact sequence}. We often just write $A \stackrel{f}{\mono} B \stackrel{g}{\epi} C$, where the arrows denote a monomorphism and an epimorphism respectively.\\
 
+Let $B$ be a (representative of a) subobject of $A$. Then the \emph{quotient} $A/B$ is defined as the cokernel of the monomorphism $B\into A$. Saying that a sequence $A \stackrel{f}{\mono} B \stackrel{g}{\epi} C$ is short exact may be interpreted as saying that $A$ is a subobject of $B$, and that $C$ is isomorphic to the quotient $B/A$, or equivalently that $(C,g)$ is the cokernel of $f$ and $(A,f)$ is the cokernel of $g$.\\
 
-Since we are working in an abelian category, each connecting map $f^i$ uniquely induces the short exact sequence:
-\[
-    \Ker(f^i) \mono C^{i} \epi \im(f^i).
-\]
-Further, the condition that $f^i \circ f^{i-1} = 0$ precisely says that the image of $f^{i-1}$ is a subobject of the kernel of $f^i$, hence we have a monomorphism
-\[ %This needs a proof
-    \im(f^{i-1}) \into \Ker(f^{i}).
-\]
-We define the \emph{cohomology} at $C^i$ to be the associated quotient $H^i(C^*) \ceq \im(f^{i-1})/\Ker(f^i)$.\\
+%We now define three types of functors which preserve part or all of short exact sequences.
+\begin{Definition}
+    Let $\func{F}{\cA}{\cB}$ be an additive covariant functor of abelian categories.
+    \begin{enumerate}
+        \item We call $F$ a \emph{left exact functor} if all exact sequences of the form $A \stackrel{f}{mono} B \to C$ in $\cA$ get mapped to exact sequences $F(A) \stackrel{F(f)}{mono} F(B) \to F(C)$.
+        \item Similarly, we call $F$ a \emph{right exact functor} if exact sequences of the form $A \to B \stackrel{f}{\epi} C$ get mapped to exact sequences $F(A) \to F(B) \stackrel{F(f)}{\epi} F(C)$.
+        \item Finally, we call $F$ an \emph{exact functor} if it is both left and right exact.
+    \end{enumerate}
+\end{Definition}
+Note that left exact functors preserve kernels and in particular monomorphisms, and right exact functors preserve cokernels and epimorphisms. Fully exact functors will preserve both, as well as exactness in general.\\
 
-For each $i$, the cohomology induces the sequence
-\[ %Also needs proof
-    H^i(C^*) \mono \CoKer(f^i) \epi \im(f^i).
-\]
+Fix some complex $(C^*, f^*)$. Then the \emph{cohomology} at $C^i$, $H^{i}(C^*) \ceq \Ker(f^i)/\im(f^{i-1})$, is the quotient associated to the monomorphism $\im(f^{i-1}) \into \Ker(f^{i})$.\\
 
-%Define Abelian Category, embedding
-%In abelian cats the image is a monomorphism
-%Short exact sequences, relation to kernel, cokernel and quotient
+Finally, we give a construction of cohomology in terms of short exact sequences.
+\begin{Theorem}
+    Given a complex $(C^*, f^*)$, for each $i$ there are short exact sequences
+    \[
+        0 \to \Ker(f^i) \mono C^{i} \epi \im(f^i) \to 0
+    \]
+    \[
+        0 \to H^i(C^*) \mono \CoKer(f^{i-1}) \epi \im(f^{i}) \to 0
+    \]
+\end{Theorem}
+
 %Several methods of factoring in AbCat
-%Additive functors
-%Define left, right, and exact functors
-%Define chain complexes
 \section{The FHHF Theorem}
 %Reason for name?
 %Lemma for image map
