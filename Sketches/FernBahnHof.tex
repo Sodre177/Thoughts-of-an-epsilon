@@ -19,7 +19,7 @@
 
 \begin{document}
 \maketitle
-In this note we give a proof of the FernBahnHof (henceforth FHHF) theorem (reference to Vakil exercise here). The FHHF theorem details how the cohomology functor interacts with left, right and fully exact functors of abelian categories.
+In this note we give a proof of the FernBahnHof (henceforth FHHF) theorem, which details how the cohomology functor interacts with left, right and fully exact functors of abelian categories. (References and outline and stuff)
 %Reference theorem in later section
 %Explain why it is interesting
 %Give the general outline
@@ -53,7 +53,7 @@ An \emph{abelian category} is, informally, a generalisation of the category of m
     \end{enumerate}
 \end{Definition}
 %We shall require several properties of abelian categories, which we now state without proof.
-Henceforth we shall assume all categories are abelian.\\
+Henceforth all categories in this note are abelian.\\
 
 
 A sequence of objects and morphisms
@@ -74,7 +74,7 @@ Let $B$ be a (representative of a) subobject of $A$. Then the \emph{quotient} $A
 \begin{Definition}
     Let $\func{F}{\cA}{\cB}$ be an additive covariant functor of abelian categories.
     \begin{enumerate}
-        \item We call $F$ a \emph{left exact functor} if all exact sequences of the form $A \stackrel{f}{mono} B \to C$ in $\cA$ get mapped to exact sequences $F(A) \stackrel{F(f)}{mono} F(B) \to F(C)$.
+        \item We call $F$ a \emph{left exact functor} if all exact sequences of the form $A \stackrel{f}{\mono} B \to C$ in $\cA$ get mapped to exact sequences $F(A) \stackrel{F(f)}{\mono} F(B) \to F(C)$.
         \item Similarly, we call $F$ a \emph{right exact functor} if exact sequences of the form $A \to B \stackrel{f}{\epi} C$ get mapped to exact sequences $F(A) \to F(B) \stackrel{F(f)}{\epi} F(C)$.
         \item Finally, we call $F$ an \emph{exact functor} if it is both left and right exact.
     \end{enumerate}
@@ -89,11 +89,15 @@ Finally, we give a construction of cohomology in terms of short exact sequences.
     \[
         0 \to \Ker(f^i) \mono C^{i} \epi \im(f^i) \to 0
     \]
-    \[
+    \begin{equation}\label{eqn:CoHomExact}
         0 \to H^i(C^*) \mono \CoKer(f^{i-1}) \epi \im(f^{i}) \to 0
-    \]
+    \end{equation}
 \end{Theorem}
-
+%Faaaark this is a long and painful process
+\begin{proof}
+    The first sequence is an immediate consequence of working in an abelian category. Consider $f^i \in \Hom(C^{i}, C^{i+1})$, then from the second definition of an abelian category, we obtain an isomorphism $\CoKer(\Ker(f^i)) \isom \Ker(\CoKer(f^i))$. Hence the image of $f^i$ is the cokernel of the kernel of $f^i$, and the sequence follows from the definition of cokernel.\\
+    The second sequence (Incomplete).
+\end{proof}
 %Several methods of factoring in AbCat
 \section{The FHHF Theorem}
 %Reason for name?
@@ -109,7 +113,7 @@ Finally, we give a construction of cohomology in terms of short exact sequences.
 \end{Theorem}
 To prove this theorem, we shall use the following result.
 \begin{Lemma}
-    For $\func{F}{\cA}{\cB}$ a covariant additive right exact functor of abelian categories, given any $\phi \in \Hom_{\cA}(A_1,A_2)$, there is a natural epimorphism %Wth does natural mean here.. makes a diagram commute?
+    For $\func{F}{\cA}{\cB}$ a covariant additive right exact functor of abelian categories, given any $\phi \in \Hom_{\cA}(A_1,A_2)$, there is an epimorphism %Wth does natural mean here.. makes what diagram commute?
     \[
         F\big(\im(\phi)\big) \epi \im\big(F(\phi)\big).
     \]
@@ -136,15 +140,38 @@ To prove this theorem, we shall use the following result.
     Then, by the definition of the cokernel of $F(i)$, applying $F$ to the above diagram we obtain
     \[
         \begin{tikzcd}
-            F\big( \Ker(\phi) \big) \arrow[r, "f"] \arrow[rr, "F(i)"', bend right] & \Ker\big( F(\phi) \big) \arrow[r, "i'", hook] & F(A) \arrow[r, "\rho'", two heads] \arrow[rd, "F(\rho)", two heads] & \im\big(F(\phi)\big)\,  \Big(= \CoKer(i') \Big)\\
+            F\big( \Ker(\phi) \big) \arrow[r, "f"] \arrow[rr, "F(i)"', bend right] & \Ker\big( F(\phi) \big) \arrow[r, "i'", hook] & F(A_1) \arrow[r, "\rho'", two heads] \arrow[rd, "F(\rho)", two heads] & \im\big(F(\phi)\big)\,  \Big(= \CoKer(i') \Big)\\
             & & & F\big(\im(\phi)\big)\, \Big( = \CoKer\big( F(i) \big)\Big) \arrow[u, "\exists! \psi", dashed]
         \end{tikzcd}
     \]
-    We hence have our desired map $\func{\psi}{F\big(\im(\phi)\big)}{\im\big(F(\phi)\big)}$.
+    Since $\rho'$ and $F(\rho)$ are epi, $\psi$ must be epi, and we have our desired map $\func{\psi}{F\big(\im(\phi)\big)}{\im\big(F(\phi)\big)}$.
 \end{proof}
-We can now prove the main theorem.
+We now finally have the tools to prove the theorem.
 \begin{proof}
-    .
+    \begin{enumerate}
+        \item Let $F$ be a right exact functor, and fix $i$. Then from \ref{eqn:CoHomExact} we can write
+        \[
+            0 \to H^i(C^*) \stackrel{i}{\mono} \CoKer(f^{i-1}) \stackrel{\rho}{\epi} \im(f^i) \to 0
+        \]
+        Applying $F$, we have
+        \[
+             F(H^i(C^*)) \stackrel{F(i)}{\to} F\big(\CoKer(f^{i-1})\big) \stackrel{F(\rho)}{\epi} F\big(\im(f^i)\big) \to 0
+        \]
+        Again from \ref{eqn:CoHomExact}, we obtain 
+        \[
+            0 \to H^i\big(F(C^*)\big) \stackrel{i'}{\mono} \CoKer\big(F(f^{i-1})\big) \stackrel{\rho'}{\epi} \im\big(F(f^i)\big) \to 0
+        \]
+        Putting these together with the lemma, and recalling that right exact functors commute with cokernels, we have
+        \[
+            \begin{tikzcd}
+                F\big( H^i(C^*)\big) \arrow[r,"F(i)"] & F\big(\CoKer(f^{i-1})\big) \arrow[d, equal]\arrow[r, "F(\rho)", two heads] & F\big(\im(f^i)\big) \arrow[d, two heads]\\
+                H^i\big(F(C^*)\big) \arrow[r, "i'", hook] & \CoKer\big(F(f^{i-1})\big) \arrow[r, "\rho'", two heads] & \im\big(F(f^i)\big)
+            \end{tikzcd}
+        \]
+        The universal property of the kernel of $\rho'$ gives us our desired map. (Need to show it commutes)
+        \item
+        \item
+    \end{enumerate}
 \end{proof}
 %Proof of theorem
 \section{Examples}
