@@ -1,7 +1,7 @@
 \documentclass[a4paper]{article}
 
-\usepackage[general]{../fancymath}
-\usepackage{../fancycom}
+\usepackage[general]{fancymath}
+\usepackage{fancycom}
 
 \aname{Adam Walsh}
 \stitle{A proof of the FernBahnHof Theorem}
@@ -19,28 +19,55 @@
 
 \begin{document}
 \maketitle
-\section{Introduction}
-In this note we prove the FernBahnHof theorem from (reference to Vakil exercise here).
+In this note we give a proof of the FernBahnHof (henceforth FHHF) theorem (reference to Vakil exercise here). The FHHF theorem details how the cohomology functor interacts with left, right and fully exact functors of abelian categories.
 %Reference theorem in later section
 %Explain why it is interesting
 %Give the general outline
-\section{Basic concepts}
-Before stating the theorem, we must first define some required terminology.\\
+\section{Preliminary notions}
+We begin by recalling some definitions from category theory required for the statement of the theorem.\\
+In any category $\cA$ with a zero object $0$, the \emph{kernel} $(K,i)$ and \emph{cokernel} $(C,\rho)$, if they exist, of a morphism $\phi \in \Hom_\cA(A,B)$, are respectively defined by the following universal properties.
+\[
+    \begin{tikzcd}
+        K \arrow[r, "i", hook] \arrow[rr, "0"', bend left]& A \arrow[r, "\phi"] & B \\
+        & K' \arrow[lu, "\exists!", dashed] \arrow[u] \arrow[ur, "0"] &
+    \end{tikzcd}
+    \qquad
+    \begin{tikzcd}
+        A \arrow[r, "\phi"] \arrow[rr, "0"', bend left] \arrow[rd, "0"]& B \arrow[d] \arrow[r, "\rho", two heads] & C \arrow[ld, "\exists!", dashed]\\
+        & C' &
+    \end{tikzcd}
+\]
+The \emph{image} of $\phi$, denoted $\im(\phi)$ is the kernel of the cokernel, and the \emph{coimage} of $\phi$, denoted $\CoIm(\phi)$, is the cokernel of the kernel.\\
 
-%Define Abelian Category, embedding
-%In abelian cats the image is a monomorphism
-%Short exact sequences, relation to kernel, cokernel and quotient
-%Several methods of factoring in AbCat
-%Additive functors
-%Define left, right, and exact functors
-%Define chain complexes
+
+An \emph{abelian category} is, informally, a generalisation of the category of modules over a ring. It is an additive category where every morphism has a kernel and cokernel such that the usual first isomorphism theorem holds. More formally, we have the following definition.
 \begin{Definition}
-    An \emph{ascending} chain complex $(C^*, f^*)$ is a diagram
-    \[
-        \dots \stackrel{f^{i-2}}{\to} C^{i-1} \stackrel{f^{i-1}}{\to} C^{i} \stackrel{f^{i}}{\to} C^{i+1} \stackrel{f^{i+1}}{\to} \dots
-    \]
-    such that $f^{i} \circ f^{i-1} = 0$ for all $i$.
+    An additive category $\cA$ with all kernels and cokernels (sometimes called a pre-abelian category) is called an abelian category if either of the following equivalent conditions hold.
+    \begin{enumerate}
+        \item All epimorphisms are cokernels and all monomorphisms are kernels.
+        \item For any morphism $\phi\in \Hom_{\cA}(A,B)$, the central map $\hat{\phi}$ of the canonical factorisation
+            \[
+                A \epi \CoIm(\phi) \stackrel{\hat{\phi}}{\to} \im(\phi) \mono B
+            \]
+            is an isomorphism.
+    \end{enumerate}
 \end{Definition}
+%We shall require several properties of abelian categories, which we now state without proof.
+Henceforth we shall assume all categories are abelian.\\
+
+A sequence of objects and morphisms
+\[
+    \dots \stackrel{f^{i-2}}{\to} C^{i-1} \stackrel{f^{i-1}}{\to} C^{i} \stackrel{f^{i}}{\to} C^{i+1} \stackrel{f^{i+1}}{\to} \dots
+\]
+is said to be a \emph{complex} if $\im(f^{i-1})$ is a subobject of $\Ker(f^i)$, or equivalently if $f^{i} \circ f^{i-1} = 0$, for all $i$. We often use the notation $(C^*, f^*)$ or simply $C^*$ to denote such a sequence. In particular, if $\im(f^{i-1}) = \Ker(f^i)$ holds for every $i$, we say that $C^*$ is \emph{exact}.
+
+An exact sequence of the form
+\[
+    0 \to A \stackrel{f}{\mono} B \stackrel{g}{\epi} C \to 0
+\]
+is called a \emph{short exact sequence}. We often just write $A \stackrel{f}{\mono} B \stackrel{g}{\epi} C$, where the arrows denote a monomorphism and epimorphism respectively.
+
+
 Since we are working in an abelian category, each connecting map $f^i$ uniquely induces the short exact sequence:
 \[
     \Ker(f^i) \mono C^{i} \epi \im(f^i).
@@ -56,6 +83,13 @@ For each $i$, the cohomology induces the sequence
     H^i(C^*) \mono \CoKer(f^i) \epi \im(f^i).
 \]
 
+%Define Abelian Category, embedding
+%In abelian cats the image is a monomorphism
+%Short exact sequences, relation to kernel, cokernel and quotient
+%Several methods of factoring in AbCat
+%Additive functors
+%Define left, right, and exact functors
+%Define chain complexes
 \section{The FHHF Theorem}
 %Reason for name?
 %Lemma for image map
@@ -68,21 +102,42 @@ For each $i$, the cohomology induces the sequence
         \item If $F$ is an exact functor, then the morphisms $\phi^i, \varphi^i$ above are inverses and hence form isomorphisms ${FH^{i}(C^{*})} \isom {H^{i}(FC^{*})}$.
     \end{enumerate}
 \end{Theorem}
-Before proving this theorem, we prove the following helpful Lemma:
+To prove this theorem, we shall use the following result.
 \begin{Lemma}
     For $\func{F}{\cA}{\cB}$ a covariant additive right exact functor of abelian categories, given any $\phi \in \Hom_{\cA}(A_1,A_2)$, there is a natural epimorphism %Wth does natural mean here.. makes a diagram commute?
     \[
-        F\big(\Im(\phi)\big) \epi \Im\big(F(\phi)\big).
+        F\big(\im(\phi)\big) \epi \im\big(F(\phi)\big).
     \]
 \end{Lemma}
 \begin{proof}
-    Write the kernel/image factorisation of $\phi$ as
+    The image of a morphism is defined as the kernel of its cokernel, which in an abelian category is isomorphic to the cokernel of the kernel. We shall establish how $F$ acts on the kernel, then use the universal property of cokernels to tell us how $F$ acts on the image.\\
+    The kernel of $\phi$ is given by
     \[
-        \Ker(\phi) \stackrel{\iota}{\mono} A_1 \stackrel{\rho}{\epi} \Im(\phi).
+        \begin{tikzcd}
+            \Ker(\phi) \arrow[r, "i", hook] \arrow[rr, "0", bend right] & A \arrow[r, "\phi"] & B
+        \end{tikzcd}
     \]
-
+    Recalling that additive functors preserve $0$, we apply $F$ to the above diagram and then use the definition of the kernel of $F(\phi)$ to obtain the following.
+    \[
+        \begin{tikzcd}
+            \Ker(F(\phi)) \arrow[r, "i'", hook] \arrow[rr, "0"', bend left] & F(A) \arrow[r, "F(\phi)"] & F(B) \\
+                & F\big(\Ker(\phi)\big) \arrow[ul, "\exists ! f", dashed] \arrow[ur, "0"] \arrow[u, "F(i)"]&
+        \end{tikzcd}
+    \]
+    To introduce the desired images, we write the kernel/image factorisation of $\phi$ as follows.
+    \[
+        \Ker(\phi) \stackrel{i}{\into} A_1 \stackrel{\rho}{\epi} \im(\phi).
+    \]
+    Then, by the definition of the cokernel of $F(i)$, applying $F$ to the above diagram we obtain
+    \[
+        \begin{tikzcd}
+            F\big( \Ker(\phi) \big) \arrow[r, "f"] \arrow[rr, "F(i)"', bend right] & \Ker\big( F(\phi) \big) \arrow[r, "i'", hook] & F(A) \arrow[r, "\rho'", two heads] \arrow[rd, "F(\rho)", two heads] & \im\big(F(\phi)\big)\,  \Big(= \CoKer(i') \Big)\\
+            & & & F\big(\im(\phi)\big)\, \Big( = \CoKer\big( F(i) \big)\Big) \arrow[u, "\exists! \psi", dashed]
+        \end{tikzcd}
+    \]
+    We hence have our desired map $\func{\psi}{F\big(\im(\phi)\big)}{\im\big(F(\phi)\big)}$.
 \end{proof}
-We can now prove the main theorem:
+We can now prove the main theorem.
 \begin{proof}
     .
 \end{proof}
