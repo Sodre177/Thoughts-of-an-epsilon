@@ -4,7 +4,7 @@
 \usepackage{fancycom}
 
 \aname{Adam Walsh}
-\stitle{A proof of the FernBahnHof Theorem}
+\stitle{Some fun facts about abelian cats}
 
 %\rawtitle{ }
 %\rawauthor{ }
@@ -19,13 +19,14 @@
 
 \begin{document}
 \maketitle
-In this note we give a proof of the FernBahnHof (henceforth FHHF) theorem, which details how the cohomology functor interacts with left, right and fully exact functors of abelian categories. (References and outline and stuff)
-%Reference theorem in later section
-%Explain why it is interesting
-%Give the general outline
+In this note we shall prove several minor results in abelian categories, some of which are well known from the canonical case of the category of modules over a ring.
+
+In Section 1, we introduce the definitions and notation that we will use throughout the rest of this document. We will also recall, without proof, some basic results from category theory. In Section 2, we shall prove several results, including the third isomorphism theorem, and define a pair of sequences to be used in the next section. Section 3 will be devoted to the statement and a partial proof of the FernBahnHof theorem from \cite{VakilAG}, for which we will need a lemma.
+
+The FernBahnHof theorem details how the cohomology functor interacts with left, right, and fully exact functors of abelian categories, and the proof, while short, will bring together the other results proven in this note.
 \section{Preliminary notions}
-We begin by recalling some definitions from category theory required for the statement of the theorem.\\
-In any category $\cA$ with a zero object $0$, the \emph{kernel} $(K,i)$ and \emph{cokernel} $(C,\rho)$, if they exist, of a morphism $\phi \in \Hom_\cA(A,B)$, are respectively defined by the following universal properties.
+We define here the required definitions, notations, and basic results required for the succeeding sections. A detailed coverage can be found in almost any introductory category theory or homological algebra text, for instance see \cite{VakilAG,HS}.\\
+In any category $\cA$ with a zero object $0$, fix a morphism $\phi \in \Hom_\cA(A,B)$. Then, if they exist, the \emph{kernel} $\Ker(\phi)=(K,i)$ and \emph{cokernel} $\CoKer(\phi)=(C,\rho)$ of $\phi$ are respectively defined by the universal properties given by the following diagrams.
 \[
     \begin{tikzcd}
         K \arrow[r, "i", hook] \arrow[rr, "0"', bend left]& A \arrow[r, "\phi"] & B \\
@@ -37,12 +38,11 @@ In any category $\cA$ with a zero object $0$, the \emph{kernel} $(K,i)$ and \emp
         & C' &
     \end{tikzcd}
 \]
-The \emph{image} of $\phi$, denoted $\im(\phi)$ is the kernel of the cokernel, and the \emph{coimage} of $\phi$, denoted $\CoIm(\phi)$, is the cokernel of the kernel.\\
+The \emph{image} of $\phi$, denoted $\im(\phi)$, is defined as the kernel of the cokernel, while the \emph{coimage} of $\phi$, denoted $\CoIm(\phi)$, is defined as the cokernel of the kernel.\\
 
-
-An \emph{abelian category} is, informally, a generalisation of the category of modules over a ring. It is an additive category where every morphism has a kernel and cokernel such that the usual first isomorphism theorem holds. More formally, we have the following definition.
+An \emph{abelian category} is, informally, a generalisation of the category of modules over a ring. It is an additive category where every morphism has a kernel and cokernel, such that the usual first isomorphism theorem holds. More formally, we have the following definition.
 \begin{Definition}
-    An additive category $\cA$ with all kernels and cokernels (sometimes called a pre-abelian category) is called an abelian category if either of the following equivalent conditions hold.
+    An additive category $\cA$ with all kernels and cokernels (sometimes called a pre-abelian category), is called an abelian category if either of the following equivalent conditions hold.
     \begin{enumerate}
         \item All epimorphisms are cokernels and all monomorphisms are kernels.
         \item For any morphism $\phi\in \Hom_{\cA}(A,B)$, the central map $\hat{\phi}$ of the canonical factorisation
@@ -52,25 +52,26 @@ An \emph{abelian category} is, informally, a generalisation of the category of m
             is an isomorphism.
     \end{enumerate}
 \end{Definition}
-%We shall require several properties of abelian categories, which we now state without proof.
-Henceforth all categories in this note are abelian.\\
+Let $X,Y$ be objects in an abelian category, with $Y$ a subobject of $X$. Then the \emph{quotient} $X/Y$ is defined as the cokernel of the monomorphism $Y\mono X$. A particular consequence of the second definition of abelian category, which we state without proof, is that the \emph{first isomorphism theorem} holds. That is, given any morphism $\phi \in \Hom(A,B)$ as above, there is an isomorphism
+\[
+    A/\Ker(\phi) \isom \im(\phi).
+\]
+Henceforth we shall assume that all categories in this document are abelian.\\
 
 
 A sequence of objects and morphisms
 \[
     \dots \stackrel{f^{i-2}}{\to} C^{i-1} \stackrel{f^{i-1}}{\to} C^{i} \stackrel{f^{i}}{\to} C^{i+1} \stackrel{f^{i+1}}{\to} \dots
 \]
-is said to be a \emph{complex} if $\im(f^{i-1})$ is a subobject of $\Ker(f^i)$, or equivalently if $f^{i} \circ f^{i-1} = 0$, for all $i$. We often use the notation $(C^*, f^*)$ or simply $C^*$ to denote such a sequence. In particular, if $\im(f^{i-1}) = \Ker(f^i)$ holds for every $i$, we say that $C^*$ is \emph{exact}.
+is said to be a \emph{complex} if $\im(f^{i-1})$ is a subobject of $\Ker(f^i)$, or equivalently if $f^{i} \circ f^{i-1} = 0$, for all $i$. We often use the notation $(C^*, f^*)$ or simply $C^*$ to denote such a sequence. In particular, if $\im(f^{i-1}) = \Ker(f^i)$ holds for every $i$, we say that $C^*$ is \emph{exact}.\\
 
 An exact sequence of the form
 \[
     0 \to A \stackrel{f}{\mono} B \stackrel{g}{\epi} C \to 0
 \]
-is called a \emph{short exact sequence}. We often just write $A \stackrel{f}{\mono} B \stackrel{g}{\epi} C$, where the arrows denote a monomorphism and an epimorphism respectively.\\
+is called a \emph{short exact sequence}. We often just write $A \stackrel{f}{\mono} B \stackrel{g}{\epi} C$, where the arrows denote a monomorphism and an epimorphism respectively. Saying that such a sequence is exact is precisely the same as saying that $(C,g)$ is the cokernel of $f$ and $(A,f)$ is the kernel of $g$. Equivalently, we may use $f$ to consider $A$ as a subobject of $B$, then the sequence being exact says that $A/B \isom C$.\\
 
-Let $B$ be a (representative of a) subobject of $A$. Then the \emph{quotient} $A/B$ is defined as the cokernel of the monomorphism $B\into A$. Saying that a sequence $A \stackrel{f}{\mono} B \stackrel{g}{\epi} C$ is short exact may be interpreted as saying that $A$ is a subobject of $B$, and that $C$ is isomorphic to the quotient $B/A$, or equivalently that $(C,g)$ is the cokernel of $f$ and $(A,f)$ is the cokernel of $g$.\\
-
-%We now define three types of functors which preserve part or all of short exact sequences.
+We now define three types of functors which preserve part or all of short exact sequences.
 \begin{Definition}
     Let $\func{F}{\cA}{\cB}$ be an additive covariant functor of abelian categories.
     \begin{enumerate}
@@ -81,9 +82,89 @@ Let $B$ be a (representative of a) subobject of $A$. Then the \emph{quotient} $A
 \end{Definition}
 Note that left exact functors preserve kernels and in particular monomorphisms, and right exact functors preserve cokernels and epimorphisms. Fully exact functors will preserve both, as well as exactness in general.\\
 
-Fix some complex $(C^*, f^*)$. Then the \emph{cohomology} at $C^i$, $H^{i}(C^*) \ceq \Ker(f^i)/\im(f^{i-1})$, is the quotient associated to the monomorphism $\im(f^{i-1}) \into \Ker(f^{i})$.\\
+The last notion we will require is that of the \emph{cohomology} of a complex. Fixing some complex $(C^*, f^*)$, the \emph{cohomology} at $C^i$ is defined to be the quotient $H^{i}(C^*) \ceq \Ker(f^i)/\im(f^{i-1})$ associated to the monomorphism $\im(f^{i-1}) \into \Ker(f^{i})$. We shall later give an alternative, but equivalent, description of the cohomology as the kernel of a short exact sequence. 
 
-Finally, we give a construction of cohomology in terms of short exact sequences.
+\section{A few results}
+We now prove some minor results in abelian categories, in particular the third isomorphism theorem. To prove this theorem, we will require the following lemma.
+\begin{Lemma}
+    Cokernel, and hence image, is invariant (up to isomorphism) under composition with an epimorphism.
+\end{Lemma}
+\begin{proof}
+    Take $f \in \Hom(X,Y)$ and $g \in \Hom(Y,Z)$, $f$ an epimorphism, and let $(C,p)$ denote the cokernel of $g$. We shall show that $(C,p)$ is also the cokernel of $g\circ f$ by showing that it satisfies the required universal property.\\
+    Since $p\circ g = 0$, we immediately have $p \circ (g\circ f) = 0$.\\
+    Take any $C'$ and $p\in \Hom(Z, C')$ such that $p' \circ (g\circ f) = 0$. Then $(p' \circ g) \circ f = 0 = 0 \circ f$, which since $f$ is epi, implies that $p' \circ g = 0$. By the universal property of the cokernel of $g$, $p'$ must factor uniquely through $p$, and hence $(C,p)$ satisfies the universal property for the cokernel of $g \circ f$.\\
+\end{proof}
+We now state and give a proof of the third isomorphism theorem in abelian categories.
+\begin{Note}
+    {Since writing this I have become aware of the possibility of significantly shorter proofs using either the snake lemma or (in order to avoid implicit use of the embedding theorem) by considering the left hand square of the second diagram below as a pullback diagram.}
+\end{Note}
+\begin{Theorem}
+    Let
+    \[
+        C \stackrel{k}{\mono} B \stackrel{i}{\mono} A
+    \]
+    be a chain of subobjects in an abelian category. Then the quotient
+    \[
+        \frac{A/C}{B/C}
+    \]
+    exists and is isomorphic to $A/B$.
+\end{Theorem}
+\begin{proof}
+    We have the following diagram:
+    \[
+        \begin{tikzcd}
+            & B/C & A/C & \\
+            C \arrow[r, hook, "k"] & B \arrow[u, "p_1", two heads] \arrow[r, "i", hook] & A \arrow[u, "p_2", two heads] \arrow[r, "p", two heads] & A/B
+        \end{tikzcd}
+    \]
+    where $(B/C, p_1), (A/C, p_2), (A/B, p)$ are the cokernels of $k$, $i\circ k$ and $i$ respectively.\\
+    We wish to show existence of a monomorphism $\func{\phi}{B/C}{A/C}$ making the above diagram commute, such that the cokernel of $\phi$ is isomorphic to $A/B$.\\
+    We make heavy use of the universal properties of kernels and cokernels. To begin with, since $p_2 \circ i \circ k = 0$, $p_2\circ i$ uniquely factors through $\CoKer(k)$, inducing $\phi$ making the following commute.
+    \[
+        \begin{tikzcd}
+            & B/C \arrow[r, "\phi"] & A/C & \\
+            C \arrow[r, hook, "k"] & B \arrow[u, "p_1", two heads] \arrow[r, "i", hook] & A \arrow[u, "p_2", two heads] \arrow[r, "p", two heads] & A/B
+        \end{tikzcd}
+    \]
+    We wish to show that $\phi$ is a monomorphism, which we do by showing that $B/C \isom \im(\phi)$. We first find the kernel of $\phi \circ p_1 = p_2 \circ i$. Take some object $C'$ with a morphism $k' \in \Hom(C', B)$ such that $p_2 \circ i \circ k = 0$. We then have the following diagram.
+    \[
+        \begin{tikzcd}
+            C \arrow[r, "k", hook] & B \arrow[r, "i", hook] & A \arrow[r, "p_2", two heads] & A/C \\
+            & C' \arrow[u, "k'", hook] \arrow[rru, "0"] & &
+        \end{tikzcd}
+    \]
+    Since $p_2 \circ (i \circ k') = 0$, by the universal property of $\Ker(p_2) = (C, i\circ k)$, $i\circ k'$ factors uniquely through $i \circ k$, i.e. there is some $\alpha \in \Hom(C', C)$ such that $i \circ k \circ \alpha = i \circ k'$. Since $i$ is a monomorphism, this is the same as saying that $k'$ factors uniquely through $k$. As we also have $p_2 \circ i \circ k = 0$, we see that $\Ker(p_1)=(C,k)$ is the kernel of $p_2 \circ i$ and hence also $\phi \circ p_1$.\\
+    Putting the above together with the definition of image, the canonical isomorphism in abelian categories, and the previous lemma, we have the following:
+    \begin{align*}
+        \im(\phi) &= \Ker(\CoKer(\phi)) \\
+            &= \Ker(\CoKer(\phi \circ p_1)) \\
+            &\isom \CoKer(\Ker(\phi \circ p_1)) \\
+            &= \CoKer(\Ker(p_1)) \\
+            &\isom \im(p_1) \\
+            &\isom B/C.
+    \end{align*}
+    Hence, $\phi$ is a monomorphism, and the quotient in the theorem may be defined as the cokernel of $\phi$, as in the following diagram.
+    \[
+        \begin{tikzcd}
+            & B/C \arrow[r, "\phi", hook] & A/C \arrow[r, "p'", two heads] & \frac{A/C}{B/C}\\
+            C \arrow[r, hook, "k"] & B \arrow[u, "p_1", two heads] \arrow[r, "i", hook] & A \arrow[u, "p_2", two heads] \arrow[r, "p", two heads] & A/B
+        \end{tikzcd}
+    \]
+    We wish to construct an isomorphism in the last column. To do this, it suffices to construct epimorphisms both ways, since they must be inverses by the universal property of the cokernel.\\
+    The pair $(p_2, A/C)$ is the cokerenel of $i\circ k$, however $p \circ (i \circ k) = 0$, hence $p$ must factor through $k$ inducing some $s\in\Hom(A/C, A/B)$ such that $s\circ p_2 = p$. Since $p_2$ and $p$ are epi, $s$ is also forced to be. Now, $s \circ \phi \circ p_1 = p \circ i = 0$, hence $s \circ \phi = 0$ since $p_1$ is epi. Hence $s$ factors through $p'$ and we obtain $\psi$ with $\psi \circ p' = s$, as below.
+    \[
+        \begin{tikzcd}
+            & B/C \arrow[r, "\phi", hook] & A/C \arrow[r, "p'", two heads] \arrow[rd, "s", two heads] & \frac{A/C}{B/C} \arrow[d, "\psi", two heads]\\
+            C \arrow[r, hook, "k"] & B \arrow[u, "p_1", two heads] \arrow[r, "i", hook] & A \arrow[u, "p_2", two heads] \arrow[r, "p", two heads] & A/B
+        \end{tikzcd}
+    \]
+    We now induce the final required map. Since $(p' \circ p_2) \circ i = p' \circ \phi \circ p_1 = 0$, $p' \circ p_2$ factors through $p$, the cokernel of $i$, to produce $\psi' \in \Hom\big(A/B, \frac{A/C}{B/C}\big)$. We now have surjections of cokernels, and hence an isomorphism 
+    \[
+        \frac{A/C}{B/C} \isom A/B
+    \]
+    as desired.
+\end{proof}
+We shall use the third isomorphism theorem to give the following alternative description of cohomology by short exact sequences.
 \begin{Theorem}
     Given a complex $(C^*, f^*)$, for each $i$ there are short exact sequences
     \[
@@ -93,16 +174,17 @@ Finally, we give a construction of cohomology in terms of short exact sequences.
         0 \to H^i(C^*) \mono \CoKer(f^{i-1}) \epi \im(f^{i}) \to 0
     \end{equation}
 \end{Theorem}
-%Faaaark this is a long and painful process
 \begin{proof}
     The first sequence is an immediate consequence of working in an abelian category. Consider $f^i \in \Hom(C^{i}, C^{i+1})$, then from the second definition of an abelian category, we obtain an isomorphism $\CoKer(\Ker(f^i)) \isom \Ker(\CoKer(f^i))$. Hence the image of $f^i$ is the cokernel of the kernel of $f^i$, and the sequence follows from the definition of cokernel.\\
-    The second sequence (Incomplete).
+    The second sequence follows from the third isomorphism theorem. Again from the definition of an abelian category, we have $\im(f^i) \isom \CoIm(f^i)$. Expanding these terms as quotients, we have
+    \begin{align*}
+        H^i(C^*) &= \Ker(f^i)/ \im(f^{i-1}) \\
+        \CoKer(f^{i-1}) &= C^i/\im(f^{i-1}) \\
+        \CoIm(f^i) &= C^i/\ker(f^{i-1}).
+    \end{align*}
+    The statement of the third isomorphism theorem then says that the monomorphism $H^i(C^*) \mono \CoKer(f^{i-1})$ exists and has cokernel $\CoIm(f^i)$. The sequence immediately follows.
 \end{proof}
-%Several methods of factoring in AbCat
-\section{The FHHF Theorem}
-%Reason for name?
-%Lemma for image map
-%Theorem
+\section{An application, the From-Here-Hop-Far Theorem}
 \begin{Theorem}[The FernbaHnHoF Theorem]
     Let $\func{F}{\cA}{\cB}$ be an additive covariant functor of abelian categories, and consider an ascending complex $\big(C^{*}, f^*\big)$ in $\cA$.
     \begin{enumerate}
@@ -113,9 +195,12 @@ Finally, we give a construction of cohomology in terms of short exact sequences.
 \end{Theorem}
 To prove this theorem, we shall use the following result.
 \begin{Lemma}
-    For $\func{F}{\cA}{\cB}$ a covariant additive right exact functor of abelian categories, given any $\phi \in \Hom_{\cA}(A_1,A_2)$, there is an epimorphism %Wth does natural mean here.. makes what diagram commute?
+    For $\func{F}{\cA}{\cB}$ a covariant additive right exact functor of abelian categories, given any $\phi \in \Hom_{\cA}(A_1,A_2)$, let $\rho \in \Hom\big(A_1, \im(\phi)\big), \rho' \in \Hom\big(F(A_1), \im(F(\phi))\big)$ be the natural image epimorphisms obtained by factoring $\phi$ and $F(\phi)$ respectively. Then there is an epimorphism $\psi$ making the following diagram commute. %Wth does natural mean here.. makes what diagram commute?
     \[
-        F\big(\im(\phi)\big) \epi \im\big(F(\phi)\big).
+        \begin{tikzcd}
+            F(A_1) \arrow[r, "\rho'", two heads] \arrow[rd, "F(\rho)"', two heads] & \im\big(F(\phi)\big) \\
+            & F\big(\im(\phi)\big) \arrow[u, "\psi", two heads]
+        \end{tikzcd}
     \]
 \end{Lemma}
 \begin{proof}
@@ -144,37 +229,41 @@ To prove this theorem, we shall use the following result.
             & & & F\big(\im(\phi)\big)\, \Big( = \CoKer\big( F(i) \big)\Big) \arrow[u, "\exists! \psi", dashed]
         \end{tikzcd}
     \]
-    Since $\rho'$ and $F(\rho)$ are epi, $\psi$ must be epi, and we have our desired map $\func{\psi}{F\big(\im(\phi)\big)}{\im\big(F(\phi)\big)}$.
+    Since $\rho'$ and $F(\rho)$ are epi, $\psi$ must be epi, and we have our desired map $\func{\psi}{F\big(\im(\phi)\big)}{\im\big(F(\phi)\big)}$, and the right hand triangle is precisely what we needed to commute.
 \end{proof}
-We now finally have the tools to prove the theorem.
+We shall only give a proof of the first part of the FernbaHnHoF theorem, however we note that the second part is dual to the first.
 \begin{proof}
-    \begin{enumerate}
-        \item Let $F$ be a right exact functor, and fix $i$. Then from \ref{eqn:CoHomExact} we can write
-        \[
-            0 \to H^i(C^*) \stackrel{i}{\mono} \CoKer(f^{i-1}) \stackrel{\rho}{\epi} \im(f^i) \to 0
-        \]
-        Applying $F$, we have
-        \[
-             F(H^i(C^*)) \stackrel{F(i)}{\to} F\big(\CoKer(f^{i-1})\big) \stackrel{F(\rho)}{\epi} F\big(\im(f^i)\big) \to 0
-        \]
-        Again from \ref{eqn:CoHomExact}, we obtain 
-        \[
-            0 \to H^i\big(F(C^*)\big) \stackrel{i'}{\mono} \CoKer\big(F(f^{i-1})\big) \stackrel{\rho'}{\epi} \im\big(F(f^i)\big) \to 0
-        \]
-        Putting these together with the lemma, and recalling that right exact functors commute with cokernels, we have
-        \[
-            \begin{tikzcd}
-                F\big( H^i(C^*)\big) \arrow[r,"F(i)"] & F\big(\CoKer(f^{i-1})\big) \arrow[d, equal]\arrow[r, "F(\rho)", two heads] & F\big(\im(f^i)\big) \arrow[d, two heads]\\
-                H^i\big(F(C^*)\big) \arrow[r, "i'", hook] & \CoKer\big(F(f^{i-1})\big) \arrow[r, "\rho'", two heads] & \im\big(F(f^i)\big)
-            \end{tikzcd}
-        \]
-        The universal property of the kernel of $\rho'$ gives us our desired map. (Need to show it commutes)
-        \item
-        \item
-    \end{enumerate}
+    Let $F$ be a right exact functor, and fix $i$. Then from \ref{eqn:CoHomExact} we can write
+    \[
+        0 \to H^i(C^*) \stackrel{i}{\mono} \CoKer(f^{i-1}) \stackrel{\rho}{\epi} \im(f^i) \to 0
+    \]
+    Applying $F$, we have
+    \[
+         F(H^i(C^*)) \stackrel{F(i)}{\to} F\big(\CoKer(f^{i-1})\big) \stackrel{F(\rho)}{\epi} F\big(\im(f^i)\big) \to 0
+    \]
+    Again from \ref{eqn:CoHomExact}, we obtain 
+    \[
+        0 \to H^i\big(F(C^*)\big) \stackrel{i'}{\mono} \CoKer\big(F(f^{i-1})\big) \stackrel{\rho'}{\epi} \im\big(F(f^i)\big) \to 0
+    \]
+    Putting these together with the lemma, and recalling that right exact functors commute with cokernels, we have
+    \[
+        \begin{tikzcd}
+            F\big( H^i(C^*)\big) \arrow[r,"F(i)"] & F\big(\CoKer(f^{i-1})\big) \arrow[d, equal]\arrow[r, "F(\rho)", two heads] & F\big(\im(f^i)\big) \arrow[d, "\psi", two heads]\\
+            H^i\big(F(C^*)\big) \arrow[r, "i'", hook] & \CoKer\big(F(f^{i-1})\big) \arrow[r, "\rho'", two heads] & \im\big(F(f^i)\big)
+        \end{tikzcd}
+    \]
+    Since $\phi' \circ F(i) = \psi \circ F(\rho) \circ F(i)= 0$, the universal property of the kernel of $\rho'$ induces our desired map.
 \end{proof}
 %Proof of theorem
-\section{Examples}
-%Something to do with tensors, Tor, and flatness.
+
+
+\begin{thebibliography}{9}
+\bibitem{VakilAG}
+  Ravi Vakil,
+  \emph{The Rising Sea, Foundations of Algebraic Geometry}.
+\bibitem{HS}
+  Hilton and Stammbach,
+  \emph{A course in Homological Algebra}.
+\end{thebibliography}
 \end{document}
 
