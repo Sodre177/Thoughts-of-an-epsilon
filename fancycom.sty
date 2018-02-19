@@ -1,4 +1,12 @@
-\ProvidesPackage{fancycom}
+%LaTeX package providing some shorthands and quick commands, tailored to certain unspecified fields of maths.
+%Not checked for conflicts with other packages.
+%Mostly for personal use.
+%Will not always be backwards compatible, although every effort will be made so that this is so.
+%Written by Adam Walsh
+%Version 1.0 (will not upgrade version numbers for minor command editions)
+
+\ProvidesPackage{fancycom}[2018/02/03 v1.0 Fancy maths common commands package]
+
 \RequirePackage{amsfonts}
 \RequirePackage{amsthm}
 \RequirePackage{amsmath}
@@ -17,7 +25,10 @@
 \RequirePackage{tikz-cd}
 
 %Textual shortcuts/aids
-    \newcommand{\mbb}[1]{\mathbb{#1}} %Embolden your symbols!
+    \newcommand{\mbb}[1]{\mathbb{#1}} %Emblacken your symbols!
+    \newcommand{\mbf}[1]{\mathbf{#1}} %Embolden your symbols!
+    \newcommand{\mfk}[1]{\mathfrak{#1}} %Enfraken your symbols!
+    \newcommand{\bsl}{\backslah} %Backslash
     \newcommand{\cndall}{\,\,\,\forall} %forall given as condition
     \newcommand{\st}{\,\mid\,}  %Such that symbol. : is also used.
     \newcommand{\what}[1]{& \qquad &\begin{sloppy}\textit{\small\mbox{#1}\small}\end{sloppy}} %Little comment for an align block. Memento of 2007.
