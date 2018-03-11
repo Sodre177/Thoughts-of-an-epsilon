@@ -28,7 +28,7 @@
     \newcommand{\mbb}[1]{\mathbb{#1}} %Emblacken your symbols!
     \newcommand{\mbf}[1]{\mathbf{#1}} %Embolden your symbols!
     \newcommand{\mfk}[1]{\mathfrak{#1}} %Enfraken your symbols!
-    \newcommand{\bsl}{\backslah} %Backslash
+    \newcommand{\bsl}{\backslash} %Backslash
     \newcommand{\cndall}{\,\,\,\forall} %forall given as condition
     \newcommand{\st}{\,\mid\,}  %Such that symbol. : is also used.
     \newcommand{\what}[1]{& \qquad &\begin{sloppy}\textit{\small\mbox{#1}\small}\end{sloppy}} %Little comment for an align block. Memento of 2007.
@@ -36,6 +36,7 @@
 %Basic symbol extensions
     \def\bA{\mathbb{A}}
     \def\bF{\mathbb{F}}
+    \def\bN{\mathbb{N}}
     \def\bR{\mathbb{R}}
     \def\bZ{\mathbb{Z}}
     \def\bQ{\mathbb{Q}}
@@ -68,6 +69,7 @@
     
     \def\fkp{\mathfrak{p}}
     \def\fkq{\mathfrak{q}}
+    \def\fkm{\mathfrak{m}}
 
 
 %Symbol abbreviations
@@ -79,6 +81,8 @@
     \def\ot{\otimes}
     \def\ptl{\partial}
     \def\bdry{\partial}
+
+    \def\nin{\not\in}
     
     \newcommand{\isom}{\cong} %Isomorphism
     \newcommand{\ceq}{\coloneqq} %Defined to be equal to
@@ -113,6 +117,7 @@
       }
     }
 
+    \newcommand{\pp}[1]{\frac{\partial}{\partial #1}}
 
 
 %For theorems and proofs
@@ -154,11 +159,14 @@
     \DeclareMathOperator{\GL}{GL}
     \DeclareMathOperator{\Obj}{Obj}
     \DeclareMathOperator{\Spec}{Spec}
+    \DeclareMathOperator{\Specm}{Specm}
     \DeclareMathOperator{\Min}{min}
     \DeclareMathOperator{\Ker}{Ker}
     \DeclareMathOperator{\im}{Im}
     \DeclareMathOperator{\CoIm}{CoIm}
     \DeclareMathOperator{\CoKer}{CoKer}
+    \DeclareMathOperator{\Der}{Der}
+    \DeclareMathOperator{\End}{End}
     
     
 % Brackets and braces
