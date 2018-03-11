@@ -1,0 +1,59 @@
+
+\documentclass[a4paper]{article}
+
+\usepackage[general]{fancymath}
+\usepackage{fancycom}
+
+\aname{Adam Walsh}
+\stitle{D-modules discussion}
+
+
+\begin{document}
+\maketitle
+Since $X$ is a smooth algebraic variety, that is the stalks are regular local rings (whatever that means), the tangent sheaf is locally free of rank $n$, i.e. for every affine open it is isomorphic to an $n$-direct sum of the structure sheaf.
+
+The tangent sheaf consists of $\bC_X$-endomorphisms of $\cO_X$, which are presumable defined by locally being endomorphisms of $\bC$-algebras. These endomorphisms satisfy the Leibniz rule, the generalised product rule.
+
+Sections of the tangent sheaf, i.e. vector fields on $X$ have by definition an action on $X$.
+
+Sections of the structure sheaf act on other sections via left multiplication.
+
+We thus have two sheaves of endomorphisms on $\cO_X$, and we may use these sheaves to generate the sheaf $D_X$ of differential operators on $X$.
+
+In the case of a manifold, given a point $p$, we can take a chart having as its origin $p$, with coordinate functions $x_1,\dots,x_n$. We may then construct a basis of the tangent space by the tangents to the axis curves, denoted $\partial_i$.
+
+What is this local coordinate system? We simultaneously defined bot ``coordinates'' on the affine open $U$, and the ``ta
+
+For the manifold $M$, the coordinates $x_i$ are precisely the coordinate projection functions taking $(a_1,\dots,a_n)$ to $a_i$. The $\partial_i$ are immediately then induced by treating the inverse of the coordinate function as a curve, and taking the tangent vector.
+
+An algebraic variety is smooth if all the stalks are \emph{regular local rings}, i.e. they are Noetherian local rings such that the minimal number of generators of the maximal ideal is equal to the krull dimension.
+
+Recall that a Noetherian ring is such that every ascending chain of prime ideals terminates, which defines the Krull dimension in the first place.
+
+Essentially, $D_U$ is formed of all polynomials in the variables $\partial_i$.
+
+Note that multiplication of polyomials in $\partial_i$ and in $x_i$ will produce a polynomial in $x_i$ times a polynomials in $\partial_i$.
+
+
+\section{Talk Structure}
+Contents\\ 5
+Motivation for $D$-modules\\ 5
+Concepts in the land of DG\\ 5
+Idea of vector fields in DG\\ 5
+Explanation of why vector fields act on sections\\ 5
+Explanation of algebraic variety\\ 5
+Examples of algebraic variety\\ 5
+Note on Smooth algebraic variety\\ 5
+Define derivation\\ 5
+Introduce Tangent sheaf\\ 5
+Local coordinate system in DG\\ 2
+Local coordinate system in Sheaf\\ 3
+Local definition of tangent sheaf from locally free, with basis\\ 5
+Local definition of sheaf of differential operators\\ 5
+Sheaf of differential operators as $\bC$ algebra satisfying relations\\ 5
+Total symbol, proof of Leibniz rule?\\ 10
+Definition of order filtration?\\ 10
+Definition of sheaf of differential operators in terms of order filtration?\\ 10
+Graded rings?\\ 20
+principal symbol?\\
+\end{document}

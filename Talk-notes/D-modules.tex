@@ -1,0 +1,106 @@
+\documentclass[a4paper]{article}
+
+\usepackage[notes]{fancymath}
+\usepackage{fancycom}
+
+\aname{Adam Walsh}
+\stitle{D-modules Talk notes}
+
+\begin{document}
+\maketitle
+We aim to define the notion of a $D$-module, and see how we can represent the classical notion of a differential equation as a $D$-module.
+
+Consider a commutative algebra $A$ over $\bC$, and the ring of $\bC$-linear endomorphisms $\End_\bC(A)$.\\
+
+The elements of $A$ may be considered as acting on $A$ by multiplication, and we can identify $\End_A(A)$ with $A$.\\
+
+A $\bC$-derivation of $A$ is a $\bC$-linear endomorphism $\theta$ of $A$ satisfying the the Leibniz rule:
+\[
+    \theta(fg) = \theta(f)g + f\theta(g).
+\]
+Note that
+\[
+    [\theta,f](g) = (\theta f)(g) - (f\theta)(g) = \theta(fg) - f\theta(g) = (\theta(f))(g).
+\]
+Hence the action of a derivation on an element of $A$ may be written $[\theta, f]$ where $f$ is the corresponding endomorphism.\\
+Since $[\theta, f] = \theta(f) \in A$, and $A$ is commutative, we see that $[[\theta,f ], g] = 0$ holds for any derivations $\theta$ and sections $f,g$. Later we come back to this and see how it encodes the notion that $\theta$ is a ``first order'' derivation.
+
+We saw schemes in the last talk. An algebraic variety over $\bC$ is a finite-type reduced integral scheme (some things redundant?) where the structure sheaf is a sheaf of $\bC$-algebras and the sections may be considered $\bC$-valued functions.
+
+
+A vector field on a manifold is simply a section of the tangent bundle on that manifold. That is, the vector field $\theta$ assigns to each point $p\in M$, a tangent vector $\theta_p$ in the tangent space over $p$. The tangent vector may be considered to act as a $\bC$-linear endomorphism on $C_\infty(M)$ as a ``derivation'', i.e. satisfying the Leibniz rule.
+
+Consider instead an algebraic variety $(X, \cO_X)$. We define vector fields on $X$ by this property. Denote the sheaf of $\bC$-linear endomorphisms of $\cO_X$ by $\End_{\bC_X}(\cO_X)$ (these commute with the restriction maps?). A section of this sheaf is locally just a $\bC$-linear endomorphism of algebras. A vector field on $X$ $\theta \in \End_{\bC_X}(\cO_X)$ is required to locally satisfy the Leibniz property, i.e. for each open $U$ in $X$, the restriction $\theta|_U$ satisfies
+\[
+    \theta|_U(fg) =\theta|_U(f) g + f \theta|_U(g)
+\]
+for all sections $f,g \in \cO_X(U)$.
+(TBD: this notation is imprecise, vector fields should be defined locally)
+
+Just in the case of manifolds and the tangent sheaf, these vector fields form a sheaf $\Theta$ on $X$, by assigning each open set $U$ to the collection of vector fields restricted to $U$. In fact, $\Theta$ has $\cO_X$-module structure, since we can act a section $f\in \cO_X(U)$ on a vector field $\theta \in \Theta(U)$ by left multiplication. 
+
+Consider an affine open $U$ in $X$. Then saying that the vector fields $\theta \in \Theta(U)$ act $\bC$-linerarly on $\cO_X(U)$ and satisfy the Leibniz rule, is to say that it acts as a derivation on the $\bC$-algebra $\cO_X(U)$. From this we see that
+\[
+    \Theta|_{U} \isom \tilde{\Der}_\bC(A = \cO(U)).
+\]
+Hence, on every affine open, $\Theta$ is isomorphic to the twiddlification of some $\cO_X$-module, i.e. $\Theta$ is quasi-coherent. In fact, the $A$-module $\Der_\bC(A)$ is finitely generated.
+
+The global sections of an affine algebraic variety over $\bC$ form an ``affine $\bC$-algebra'', which is in particular isomorphic to the polynomial ring $\bC[x_1,\dots,x_n]$ for some $n$ quotient by some ideal $I$. The derivations of the polynomial ring may be written
+\[
+    \Der_{\bC}(\bC[x_1,..,x_n]) = \bigoplus_{i\leq n} \bC[x_1,\dots,x_n] \frac{\partial}{\partial x_i}
+\]
+where $\frac{\partial}{\partial x_i}$ is the derivation on the polynomial ring such that $\pp{x_i} x_j = \delta_{ij}$ and $\pp{x_i}\pp{x_j} = \pp{x_j}\pp{x_i}$.\\
+The derivations on the affine algebra correspond to that subset of these which fix $I$, and hence form a finitely generated $A$-module.\\
+We thus see that the tangent sheaf is a coherent $\cO_X$-module.\\
+
+We call an algebraic variety smooth if the stalks are \emph{regular} local rings, i.e. the minimal number of generators for the maximal ideal is equal to the Krull dimension.\\
+This gives us some nice properties, for instance the stalks become unique factorisation domains. More relevantly, we can define the notion of dimension for a smooth affine variety, which turns out to be the number of variables in the polynomial ring above.\\
+We now define the notion of a local coordinate system. At every point $p$ on $X$, there is an affine open neighborhood $U$ of $p$, sections $x_i \in \cO_X(U)$ and corresponding vector fields $\ptl_i \in \Theta(U)$ such that $\Theta(U)$ is generated over $\cO_X(U)$ with basis $\ptl_i$, $\ptl_i(x_j) = \delta_{ij}$ and the $\ptl_i$ commute. That is,
+\[
+    \begin{cases}
+        [\ptl_i, \ptl_j] = 0, \ptl_{i}(x_i) = \delta_{ij} &\qquad 1\leq i,j \leq n\\
+        \Theta(U) = \bigoplus_{1\leq i \leq n} \cO_U \ptl_{i}.
+    \end{cases}
+\]
+The collection $\{x_i, \ptl_i\}$ is known as a local coordinate system. In the manifold case, the $x_i$ are precisely coordinate functions on a chart, and $\ptl_i$ are the tangent vectors defined by those coordinate functions.
+
+
+
+We now have all the tools we require to define the sheaf of differentials.
+
+Let $X$ as usual be a smooth algebraic variety with structure sheaf $\cO_X$, and let $\Theta_X$ denote the tangent sheaf on $X$. Sections in $\cO_X$ may be considered as $\bC$-valued functions, and by left multiplication we may consider them locally $\bC$-linear endomorphisms of $\cO_X$. The sections of $\Theta_X$ are vector fields, by definition they are locally $\bC$-linear endomorphisms of $\cO_X$. Accordingly, we may generate the $\End_{C_X}(\cO_X)$ subalgebra consisting locally of all polynomials of sections in $\cO_X$ and derivations in $\Theta_X$. These polynomials form the sheaf $D_X$, known as the sheaf of differentials.
+
+
+Take any affine open $U$ of $X$, then $D_X(U)$ is the $\bC$-algebra generated by the $\bC$-algebra $\cO_X(U)$ and the $\cO_X(U)$-module $\Theta_X(U)$ preserving the algebra structure on $\cO_X(U)$, the Lie algebra structure on $\Theta_X(U)$ and the actions of each on the other. That is, $D_X(U)$ is the free algebra generated by the symbols $f\in \cO_X(U)$ and $\theta \in \Theta_X(U)$ quotient by the relations:
+\[
+    \begin{cases}
+        \tilde{f_1} + \tilde{f_2} = \tilde{f_1 + f_2}, \quad \tilde{f_1f_2} = \tilde{f_1}\tilde{f_2}\\
+        \tilde{\theta_1 + \theta_2} = \tilde{\theta_1} + \tilde{\theta_2}, \quad \widetilde{[\theta_1, \theta_2]} = [\tilde{\theta_1}, \tilde{\theta_2}] \\
+        \widetilde{f\theta} = \tilde{f}\tilde{\theta}, \quad \widetilde{\theta(f)} = [\tilde{\theta}, \tilde{f}]
+    \end{cases}
+\]
+
+Consider a local coordinate system $\{x_i, \ptl_i\}$ for the tangent sheaf $\Theta_X$ on an affine open $U$. $D_X(U)$ is formed of all polynomials of derivations and sections. Using standard multindex notation, we can write
+\[
+    D_X(U) = \bigoplus_{\alpha \in \bN^\alpha} \cO_U \ptl^\alpha_x\qquad \ptl^\alpha_x = \ptl^{\alpha_1}_{1}\ptl^{\alpha^2}_{2}\dots\ptl^{\alpha_n}_{n}.
+\]
+Each differential operator on $U$ can then be written as a polynomial
+\[
+    P = \sum_{\alpha \in \bN^\alpha} a_\alpha(x) \ptl^\alpha_x
+\]
+with coefficients $a_\alpha(x) \in \cO_X(U)$ (TBD: are these coefficients linear functions). We define the total symbol of a differential operator as above to be the corresponding polynomial
+\[
+    \sigma(P) = \sum_{\alpha \in \bN^\alpha} a_\alpha(x) \psi^\alpha_x \in \bC[x_1,\dots,x_n,\psi_1,\dots,\psi_n].
+\]
+The order of a differential operator is the maximum $|\alpha|$ for which $a_\alpha$ is non-zero. This order is also the minimum $l$ for which
+\[
+    [ [\dots [[ P, a_0], a_1], \dots], a_l ] = 0.
+\]
+We may define a filtration by order of $D_X(U)$ as follows:
+\[
+    F_l D_X(U) = \bigoplus_{|\alpha| < l} \cO_U \ptl^\alpha_x.
+\]
+This can be extended to an arbitrary open subset $V$ by letting $F_lD_X(V)$ consist of those differentials of $V$ which restrict into $F_lD_X(U)$ for all open affines $U$.
+
+\end{document}
+

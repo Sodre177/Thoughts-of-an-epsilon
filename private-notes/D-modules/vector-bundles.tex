@@ -1,0 +1,28 @@
+
+\documentclass[a4paper]{article}
+
+\usepackage[general]{fancymath}
+\usepackage{fancycom}
+
+\aname{Adam Walsh}
+\stitle{A quick note on vector bundles}
+
+
+\begin{document}
+\maketitle
+Consider the unit sphere $S^2$, then for any $x$ on $S^2$, we may define the tangent plane $P_x$. The tangent plane may be considered as a copy of $\bR^2$ attached to $x$. We define $TS^2$ as the disjoint union of all tangent planes to points $x\in S^2$. There is then a natural continuous injective function from $TS^2$ to $S^2 \times \bR^3$, taking a vector $v \in P_x$ to $(x,\tau(v))$, where $\tau$ translates the tangent vector in $P_x$ to the origin of $\bR^3$.
+
+So, we have associated each point on $S^2$ with a copy of $\bR^2$. However, we do not obtain from this a homeomorphism from $TS^2$ to $S^2 \times \bR^2$, since the family of tangent vectors associated to a particular $v\in \bR^2$ would then form a continuous map from $S^2$ to a space of non-zero tangent vectors associated to each point on $S^2$, which would form a hairy ball.
+
+However, for each point we do have a copy of $\bR^2$, and in fact, for any small neighborhood $U$ of $x\in S^2$, the corresponding $TU$ (treated as a restriction of $TS^2$ in some sense) is homeomorphic to $U \times R^2$, with each point $x\in U$ taken to ${x} \times \bR^2$.
+
+This forms the primary idea of a vector bundle.
+
+More abstractly, consider a real manifold $M$, then a vector bundle $E$ on $M$ is a map
+\[
+    \func{\pi}{E}{M}
+\]
+where each fibre $\pi^{-1}(x)$ for $x \in M$ has the structure of a real vector space, such that there is some open cover $\{U_\alpha\}$ of $M$ where for each $U_\alpha$, there is a homeomorphism between $\pi^{-1}(U_\alpha)$ and $U_\alpha \time \bR^n$ (where $n$ is the rank of the vector bundle and the dimension of each fibre) taking each $x\in U_\alpha$ to $\{x\}\times \bR^n$. This homeomorphism is called a trivialisation on $U_\alpha$.
+
+\section{Transition functions}
+\end{document}

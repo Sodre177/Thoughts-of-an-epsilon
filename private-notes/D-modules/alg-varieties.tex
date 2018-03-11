@@ -1,0 +1,40 @@
+\documentclass[a4paper]{article}
+
+\usepackage[general]{fancymath}
+\usepackage{fancycom}
+
+\aname{Adam Walsh}
+\stitle{A small note on Algebraic varieties}
+
+\begin{document}
+\maketitle
+Consider an affine (i.e. finitely generated and reduced) $k$-algebra $A$. We define the maximal spectrum $V = \Specm(A)$ in the usual way, as the set of maximal ideals of $A$ endowed with the \emph{Zariski} topology. A closed set in the Zariski topology is the set of maximal ideals containing some some fixed collection of functions $I \subseteq A$. Note that the collection of functions may as well be replaced by the ideal they generate.
+We may also define the Zariski topology by a basis of open sets known as the \emph{distinguished opens}, given by
+\[
+    D(f) \ceq \{\fkm_x \in V \st f \nin \fkm_x\} \cndall f \in A.
+\]
+
+We may consider $A$ as a collection of $k$-valued functions taking inputs from $V$, by defining
+\[
+    f(x) = f(\fkm_x) = f + \fkm_x \in A/\fkm_x.
+\]
+That is, the surjective algebra homomorphism
+\[
+    \vfunc{e_x}{A}{A/\fkm_x}{f}{f + \fkm_x}
+\]
+forms the evaluation map for functions in $A$ at points of $V$.
+
+We may now define sheaf structure $\cO_V$ on $V$ by associating to each open set $D(f)$ the ring
+\[
+    \Gamma(D(f)) \ceq A_f \ceq S^{-1}A, \qquad S = \{1, f, f^2, \dots\}.
+\]
+The corresponding stalks are easily seen to be
+\[
+    \cO_{V,x} = A_x = (A\bsl\fkm_x)^{-1}A.
+\]
+An affine variety is then a ringed space isomorphic to such a spectrum of a ring with associated structure sheaf.
+
+An algebraic pre-variety is a sheaf of rings, with sections considered as $k$-valued functions, that is locally isomorphic to an affine variety.
+
+An algebraic variety is a quasi-compact, separated pre-variety.
+\end{document}
