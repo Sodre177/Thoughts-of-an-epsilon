@@ -1,0 +1,131 @@
+%        File: D-modules3.tex
+%     Created: Fri Apr 20 12:00 PM 2018 A
+% Last Change: Fri Apr 20 12:00 PM 2018 A
+%
+
+\documentclass[a4paper]{article}
+
+\usepackage[general]{fancymath}
+\usepackage{fancycom}
+
+\aname{Adam Walsh}
+\stitle{D-modules second talk notes}
+
+
+\begin{document}
+\maketitle
+\section{General overview}
+The topic of the talk is derived categories. Derived categories are additive categories of complexes of objects (usualy) from abelian categories, which are nice in various ways.
+
+I need to cover the following general things:
+\begin{itemize}
+    \item Review definition of additive and abelian categories
+    \item Review definition of chain complexes
+    \item Define the category of chain complexes
+    \item Define homotopy between chain maps
+    \item Define cohomology
+    \item Explain why we want Derived cats, and in a general sense what they are.
+    \item Define the category of homotopic chain complexes, explain why it makes sense
+    \item Possibly here introduce cones and triangles?
+    \item Introduce triangulated categories
+    \item Get up to localization
+    \item Speak about Multiplicative subsets,m Verdier and Ore localisation in a general triangulated category, etc
+    \item Define derived categories as the localisation of the homotopic chain category by quasi isomorphisms
+    \item Maybe here talk about cones, shifted complexes/suspensions etc properly
+    \item Possibly list the defining properties of a triangulated category (or maybe before localisation)
+    \item Explain how triangles replace short exacty sequences in the derived cateogry and $K$ category.
+    \item Derived functors
+\end{itemize}
+
+\section{Actual Talk}
+\begin{itemize}
+    \item The definition we gave for the direct image of D-modules last week was unsatisfactory. Since it involved both the tensor functor and the hom functor, it was neither left nor right exact. We now aim to introduce the language of derived categoires and derived functors which allows us to make homological arguments with D-modules.
+    \item We start be recalling some category theory.
+    \item An additive category is such that:
+        \begin{itemize}
+            \item The Hom classes form abelian groups
+            \item Composition of morphisms is bilinear
+            \item All finite products exist.
+        \end{itemize}
+    \item An abelian category is informally an additive category where all kernels and cokernels exist, and where a form of the first isomorphism theorem holds.
+    \item Formally we say that an additive category is abelian if all epis are kernels and all monos are cokernels.
+    \item Lots of our favourite categoires are abelian (example here)
+    \item An abelian category allows short exact sequences
+    \item 
+        \begin{Theorem}[Freyd-Mitchell Embedding theorem]
+            For any small abelian cat $\cA$, there exists a unital ring $R$ and an exact fully faithful functor from $\cA$ into the cateogry of modules over $R$.
+        \end{Theorem}
+    \item This allows us to do elemental arguments on abelian categories if required
+    \item Define a (cochain) complex in an abelian category $\cA$ as a sequence $A^\bullet$
+        \[
+            \dots \stackrel{d^{-2}}{\to} A^{-1} \stackrel{d^{-1}}{\to} A^{0} \stackrel{d^{0}}{\to} A^1 \stackrel{d^1}{\to} \dots
+        \]
+        of objects and morphisms (called differential or boundary maps) in $\cA$ such that $d^i \circ d^{i-1} = 0$.
+    \item We often use chain complexes to describe the structure of spaces, e.g.
+        \begin{itemize}
+            \item Singular complexes
+            \item Cellular complexss (given a CW decomposition)
+            \item Simplicial complexes (given a triangulation)
+            \item DeRham complexes (on a differentiable manifold)
+        \end{itemize}
+    \item We can define morphisms between chain complexes, called chain maps, required to commute with the boundary maps (diagram here).
+    \item These morphisms make chain complexes into a category. In fact, it inherits abelian structure from $\cA$, and the kernels/ cokernels are defined termwise.
+    \item Define the left shifting functor by $A \to A[n]$ sending blah to blah.
+    \item For $n=1$, the shifting functor is also known as suspension.
+    \item Chain complexes have a furthur structure called a differential grading. Given two chain complexes $A, B \in \cC(\cA)$, define
+        \[
+            \Hom_\cA(A, B)^n \ceq \prod_{i \in \bZ} \Hom_\cA(A^i, B^{i+n}).
+        \]
+        These then form a complex with differential maps given by
+        \[
+            d^n(f) \ceq d_B \circ f - (-1)^n \cdot f \cdot d_A.
+        \]
+        (Skipping dg-category structure for now until I figure it out)
+    \item The cohomology (equation) of a cochain complex measures how far from being exact it is. 
+    \item Cohomologies often measure geometrical properties and obstructions (?)
+    \item Quite often when we represent an object using a complex, we are interested in the cohomology. There are often multiple complexes representing the object with the same cohomology.
+    \item We want an equivalence of some sort which identifies complexes with the same cohomology.
+    \item We don't want to completely reduce to dealing with cohomology because that throws awaty too much information.
+    \item This is the purpose of derived categories.
+    \item A quasi isomorphism is defined as (blah)
+    \item Derived categories arise as the localisation, in some sense we will define later, of categories known as homotopy categories.
+    \item Given two chain maps $f,g \in \Hom_{\cC(\cA)}(A, B)$, we say they are homotopic if there exists a chain homotopy between them.
+    \item A chain homotopy is a sequence of maps $\func{\phi^i}{A}{B[1]}$ such that $f-g = \phi \circ d_A - d'_B \circ \phi$.
+    \item Maybe talk about Prism operators and give an intuition for this.
+    \item Note that $f$ and $g$ are chain homotopic if and only if $f-g$ is chain homotopic to $0$.
+    \item If $f$ and $g$ are homotopic, they induce the same maps on homotopy classes
+    \item Given any hom class $\Hom(A,B)$ in $\cC(\cA)$, the collection of null homotopic maps forms a subgroup
+    \item Quotienting out by this sub group gives us the homotopy category (formal definition of morphisms)
+    \item $K(\cA)$ is the category of complexes where the morphisms are classes of homotopic chain maps.
+    \item $K(\cA)$ is no longer an abelian category, only additive. We define a notion to replace kernels and cokernels.
+    \item Consider any additive category $\cA$, and complexes $K, L$, and a chain map $\func{f}{K}{L}$.
+        \begin{Definition}
+            The mapping cone of $f$ is a complex
+            \begin{align*}
+                C^n &= K^n[1] \oplus L^n = \bmqty{K^n[1]\\ L^n} \\
+                d^n_C &= \bmqty{ - d^n_{K[1]} & 0 \\ f^{n+1} & d^n_L}
+            \end{align*}
+        \end{Definition}
+        We have the embedding $L \to C(f)$, and the projection $C(f) \to K[1]$. Together, this gives us a sequence
+        \[
+            K \to L \to C(f) \to K[1].
+        \]
+        $C(f)$ is also known as the homotopy cokernel of $f$, since it satisfies the universal property of the cokernel up to homotopy.
+    \item The cohomology of the mapping cone is everywhere zero if and only if $f$ is a quasi isomorphism. It is always zero at $0$ though.
+    \item The sequence above is a special case of a triangle
+    \item Stuff to define triangles.
+    \item A triangulated functor is a functor between triangulated categories which commutes with the suspension, preserves exact triangles, and is additive.
+    \item B.3.2
+    \item B.3.3
+    \item A Cohomological functor from a triangulated category to an abelian category is an additive functor such that exact triangles get mapped to exact sequences.
+    \item Stuff on localisations of categories. Talk about Ore, Verdier, etc.
+    \item Show that the quasi isomorphisms form a multiplicative system
+    \item Define the derived category.
+    \item Note that the natural embedding is fully faitful.
+    \item Exact sequences correspond to exact triangles in $D(A)$ using complexes concentrated at degree $0$.
+    \item Derived functors and adjoint stuff
+\end{itemize}
+\end{document}
+
+
+
