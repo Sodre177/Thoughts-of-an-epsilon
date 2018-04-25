@@ -39,7 +39,7 @@ I need to cover the following general things:
 
 \section{Actual Talk}
 \begin{itemize}
-    \item The definition we gave for the direct image of D-modules last week was unsatisfactory. Since it involved both the tensor functor and the hom functor, it was neither left nor right exact. We now aim to introduce the language of derived categoires and derived functors which allows us to make homological arguments with D-modules.
+    \item The definition we gave for the direct image of D-modules last week was unsatisfactory. Since it involved both the tensor functor and the hom functor, it was neither left nor right exact. We now aim to introduce the language of derived categoires which allows us to make homological arguments with D-modules.
     \item We start be recalling some category theory.
     \item An additive category is such that:
         \begin{itemize}
@@ -47,9 +47,15 @@ I need to cover the following general things:
             \item Composition of morphisms is bilinear
             \item All finite products exist.
         \end{itemize}
+    \item We call a functor between additive categories additive if it induces group homomorphisms on the morphism groups
     \item An abelian category is informally an additive category where all kernels and cokernels exist, and where a form of the first isomorphism theorem holds.
     \item Formally we say that an additive category is abelian if all epis are kernels and all monos are cokernels.
     \item Lots of our favourite categoires are abelian (example here)
+    \item Standard examples of abelian categories are:
+        \begin{itemize}
+            \item The category of modules over a ring
+            \item The category of sheaves of a topological space
+        \end{itemize}
     \item An abelian category allows short exact sequences
     \item 
         \begin{Theorem}[Freyd-Mitchell Embedding theorem]
@@ -68,9 +74,19 @@ I need to cover the following general things:
             \item Simplicial complexes (given a triangulation)
             \item DeRham complexes (on a differentiable manifold)
         \end{itemize}
-    \item We can define morphisms between chain complexes, called chain maps, required to commute with the boundary maps (diagram here).
-    \item These morphisms make chain complexes into a category. In fact, it inherits abelian structure from $\cA$, and the kernels/ cokernels are defined termwise.
-    \item Define the left shifting functor by $A \to A[n]$ sending blah to blah.
+    \item Chain complexes in $\cA$ form a category, with morphisms known as chain maps. A chain map $\func{\phi}{A}{B}$ is a family of morphisms $\func{\phi^n}{A^n}{B^n}$ commuting with the boundary maps.
+    \item Since chain maps are defined termwise, the kernel and cokernel of a chain map are also defined termwise, with boundary maps induced from $A$ and $B$ (draw this, the boundary maps are forced by universal property)
+    \item $\cC(\cA)$ inherits additive and abelian structure from $\cA$
+    \item We take note of three full subcategories of $\cC(\cA)$, $\cC^+$, $\cC^-$, $\cC^b$, bounded below, bounded above, and bounded complexes.
+    \item Define the left shifting functor on $\cC(\cA)$ by $\vfunc{[n]}{\cC}{\cC}{A}{A[n]}$ where $A[n]$ is the complex with the terms
+        \[
+            A^i[n] = A^{n+i}
+        \]
+        and boundary mpas
+        \[
+            d_{A[n]}^i = (-1)^n d_A^{n+i}
+        \]
+    \item The left shifting functor is an additive automorphism of $\cC$ with inverse $[-n]$
     \item For $n=1$, the shifting functor is also known as suspension.
     \item Chain complexes have a furthur structure called a differential grading. Given two chain complexes $A, B \in \cC(\cA)$, define
         \[
@@ -81,23 +97,40 @@ I need to cover the following general things:
             d^n(f) \ceq d_B \circ f - (-1)^n \cdot f \cdot d_A.
         \]
         (Skipping dg-category structure for now until I figure it out)
-    \item The cohomology (equation) of a cochain complex measures how far from being exact it is. 
+    \item The cohomology 
+        \[
+            H^i(A) = Ker^i(A)/Im^{i-1}(A)
+        \]
+        of a cochain complex measures how far from being exact it is. 
     \item Cohomologies often measure geometrical properties and obstructions (?)
     \item Quite often when we represent an object using a complex, we are interested in the cohomology. There are often multiple complexes representing the object with the same cohomology.
-    \item We want an equivalence of some sort which identifies complexes with the same cohomology.
     \item We don't want to completely reduce to dealing with cohomology because that throws awaty too much information.
+    \item We want an equivalence of some sort which identifies complexes with the same cohomology.
     \item This is the purpose of derived categories.
-    \item A quasi isomorphism is defined as (blah)
+    \item Chain maps induce maps on the cohomologies
+    \item We call a chain map a quasi-isomorphism (qis) or weak equivalence if it induces isomorphisms on the cohomologies. 
     \item Derived categories arise as the localisation, in some sense we will define later, of categories known as homotopy categories.
-    \item Given two chain maps $f,g \in \Hom_{\cC(\cA)}(A, B)$, we say they are homotopic if there exists a chain homotopy between them.
-    \item A chain homotopy is a sequence of maps $\func{\phi^i}{A}{B[1]}$ such that $f-g = \phi \circ d_A - d'_B \circ \phi$.
-    \item Maybe talk about Prism operators and give an intuition for this.
-    \item Note that $f$ and $g$ are chain homotopic if and only if $f-g$ is chain homotopic to $0$.
-    \item If $f$ and $g$ are homotopic, they induce the same maps on homotopy classes
-    \item Given any hom class $\Hom(A,B)$ in $\cC(\cA)$, the collection of null homotopic maps forms a subgroup
-    \item Quotienting out by this sub group gives us the homotopy category (formal definition of morphisms)
-    \item $K(\cA)$ is the category of complexes where the morphisms are classes of homotopic chain maps.
-    \item $K(\cA)$ is no longer an abelian category, only additive. We define a notion to replace kernels and cokernels.
+    \item Given two chain maps $f,g \in \Hom_{\cC(\cA)}(A, B)$, we say they are homotopic, $f ~ g$, if there exists a chain homotopy between them.
+    \item A chain homotopy from $f$ to $g$ is a sequence of maps
+        \[
+            \func{h^i}{A^i}{B^{i-1}}
+        \]
+        such that
+        \[
+            f^i - g^i = h^{i+1} \circ d^i_A + d^{i-1}_B \circ h^{i}
+        \]
+    \item If $f$ and $g$ are chain homotopic, this is the same as saying that $f-g$ is homotopic to $0$, or null-homotopic.
+    \item If $f$ is null-homotopic, this says there is some map $h$ for which $f^i = h^{i+1} \circ d^i_A + d^{i-1}_B \circ h^i$. (diagram)
+    \item Consider the induced map on cohomology. Restricting $f^i$ to the kernel of $d^i_A$, we get $d^{i-1}_B \circ h^i$. This is clearly already in the image, so $f^i$ induces the zero map on cohomology.
+    \item So, if $f ~ g$, then $f$ and $g$ induce the same maps on cohomology.
+    \item Since the induced map on cohomologies is linear, given any hom class $\Hom(A,B)$ in $\cC(\cA)$, the subcollection of null-homotopic maps forms a subgroup.
+    \item If we then quotient the morphism classes by this subgroup, we expect to get a category where the morphisms are classes of chain homotopic chain maps.
+    \item This is precisely the homotopy category. The objects are still the chain complexes in $\cA$, the morphisms classes are defined
+        \[
+            Hom(A, B) = Hom_\cC(A,B)/ Ht(A,B).
+        \]
+    \item We have a natural additive functor from $\cC$ to $K$ which is the identity on objects and a surjection on morphisms.
+    \item $K(\cA)$ is no longer an abelian category, only additive. We need a notion to replace kernels and cokernels.
     \item Consider any additive category $\cA$, and complexes $K, L$, and a chain map $\func{f}{K}{L}$.
         \begin{Definition}
             The mapping cone of $f$ is a complex
@@ -106,23 +139,84 @@ I need to cover the following general things:
                 d^n_C &= \bmqty{ - d^n_{K[1]} & 0 \\ f^{n+1} & d^n_L}
             \end{align*}
         \end{Definition}
-        We have the embedding $L \to C(f)$, and the projection $C(f) \to K[1]$. Together, this gives us a sequence
+    \item (Drawing)
+    \item
+        We have the embedding $L \to C(f)$, and the projection $C(f) \to K[1]$. Together, this gives us a sequence of complexes
         \[
             K \to L \to C(f) \to K[1].
         \]
-        $C(f)$ is also known as the homotopy cokernel of $f$, since it satisfies the universal property of the cokernel up to homotopy.
-    \item The cohomology of the mapping cone is everywhere zero if and only if $f$ is a quasi isomorphism. It is always zero at $0$ though.
-    \item The sequence above is a special case of a triangle
-    \item Stuff to define triangles.
+        $C(f)$ is also known as the homotopy cokernel of $f$, since it satisfies the universal property of the cokernel up to homotopy. (diagram here)
+    \item The short exact sequence
+        \[
+            0 \to L \to C(f) \to K[1] \to 0
+        \]
+        induces the long exact sequence in homology
+        \[
+            \dots \to H^{n-1}(C(f)) \to H^n(K) \to H^n(L) \to H^{n}(C(f)) \to \dots.
+        \]
+    \item The cohomology of the mapping cone is everywhere zero if and only if $f$ is a quasi isomorphism.
+    \item The new structure we have on the homotopy category is that of a triangulated category.
+    \item In general, an additive category $A$ is a triangulated category if it is equipped with
+        \begin{itemize}
+            \item An additive automorphism known as shift, translation, or suspension, $T$
+            \item A collection of diagrams known as exact or distinguished triangles, of the form
+                \[
+                    X \to Y \to Z \to T(X)
+                \]
+                satisfying the following properties.
+        \end{itemize}
+        \begin{enumerate}
+            \item The collection of exact triangles is closed under isomorphism
+            \item All diagrams of the form $X \stackrel{id}{\to} X \to 0 \to X[1]$ are exact triangles.
+            \item Any morphism may be embedded into an exact triangle (maynot be unique)
+            \item Exact triangles can be rotated
+            \item Given two exact triangles and a morphism in the first two terms, the morphism can be completed (this is redundant) (also may not be unique)
+            \item The octahedral axiom.
+        \end{enumerate}
+    \item For potential intuition with the octahedral axiom, consider that for nested inclusions of abelian groups, $A \subset B \subset C$ implies $C/B \isom (C/A)/(B/A)$. Replacing the short exact sequences $A\to B \to B/A$, $A\to C \to C/A$ and $B \to C \to C/B$ by distinguished triangles, the octahedral axiom approximately requires that $B/A \to C/A \to C/B$ is a distinguished triangle.
+    \item The homotopy category is a triangulated category, where the translation functor $T$ is the suspension $[1]$, and the exact triangles are those sequences isomorphic to the mapping cone sequence.
+    \item A morphism of triangles is a morphism of sequences
     \item A triangulated functor is a functor between triangulated categories which commutes with the suspension, preserves exact triangles, and is additive.
-    \item B.3.2
-    \item B.3.3
+    \item Triangulated functors are the new exact functors.
+    \item A simple example of a triangulated functor is given by considering some additive functor $F$ between abelian categories $M, N$. Applying the functor termwise, we obtain a functor from $C(M)$ to $C(N)$
+    \item Homotopies are given by a linear equation, so $C(F)$ will respect homotopies, and thus give an additive functor from $K(M)$ to $K(N)$.
+    \item This turns out to be a triangulated functor
+    \item For any exact triangle in $K$, the induced cohomology sequence $H(A) \to H(B) \to H(C)$ is exact
     \item A Cohomological functor from a triangulated category to an abelian category is an additive functor such that exact triangles get mapped to exact sequences.
-    \item Stuff on localisations of categories. Talk about Ore, Verdier, etc.
+    \item In particular, the functor $H^n$ is a cohomological functor.
+    \item Given such a functor, via continually rotating an exact triangle, we obtain a long exact sequence
+        \[
+            \dots \to F(T^{-1}(Z)) \to F(X) \to F(Y) \to F(Z) \to F(T(X)) \to F(T(Y)) \to \dots
+        \]
+    \item We now describe localisation of categories
+    \item The universal property for localisation of categories (the category of fractions) is natural from ring theory.
+    \item Given a category $C$ and a subclass of morphisms $W$, the localisation of $C$ with respect to $U$ is a category $C[W^{-1}]$ equipped with a localisation functor satisfying
+        \begin{itemize}
+            \item $Loc(w)$ is an isomorphism for all $w\in W$
+            \item If $F$ is another such functor, then $F$ factors uniquely through Loc.
+        \end{itemize}
+    \item There are conditions corresponding to the left and right Ore conditions of non-commutative algebra, to define a notion of a multiplicative subclass of morphisms, which then gives us a way of explicitly writing down the localisation.
+    \item We call a subclass $W$ of morphisms of $C$ a multiplicative system if:
+        \begin{itemize}
+            \item $W$ contains all the identity maps and is closed under composition. This is the same as saying that the objects of $C$ with the morphisms of $W$ form a wide subcategory.
+            \item Given $f\in S$ and $w\in W$ with the same source, the (diagram) square may be completed. Similarly if they have the same target.
+            \item If there is some $w\in W$ such that $w\circ f = w \circ g$, then there is a $w' \in W$ such that $f \circ w' = g \circ w'$. (diagram)
+        \end{itemize}
+    \item We define a left roof between two objects to be a diagram of the form (diagram). We can think of this as a formal left fraction $w^{-1}f$, representing a morphism from $A$ to $B$. Right rooves are defined similarly, but we will only consider left roofs since the theory immediately extends.
+    \item We say $(f_1, w_1)$ is equivalent to $(f_2, w_2)$ if there are morphisms $h,g$ such that $g\circ w_2 = h\circ w_1 \in W$. This is an equivalence relation.
+    \item To compose two rooves, we extend (diagram) by means of the second axiom. It is a fundamental result that this composition is unique up to equivalence.
+    \item The localisation is the the category where the objects are the same as in $C$, and the morphisms are equivalence classes of rooves.
+    \item Using various properties of rooves, it can be shown that, if $C$ is additive, the equivalence class of the sum is well defined. This can be used to show that the localisation of an additive category with respect to a multiplicative system is itself additive.
+    \item Verdier localisation?
     \item Show that the quasi isomorphisms form a multiplicative system
     \item Define the derived category.
     \item Note that the natural embedding is fully faitful.
     \item Exact sequences correspond to exact triangles in $D(A)$ using complexes concentrated at degree $0$.
+    \item Quick stuff about derived functors.
+    \item If the abelian category has enough injectives, every bounded above complex is qis to a complex of injectives
+    \item Consider a left exact functor, acts nicely on injectives
+    \item The right derived functor is the functor applied to the injective resolution
+    \item This is a triangulated functor
     \item Derived functors and adjoint stuff
 \end{itemize}
 \end{document}
